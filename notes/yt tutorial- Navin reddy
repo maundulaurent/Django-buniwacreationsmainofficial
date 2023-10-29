@@ -1,1 +1,20 @@
+Frame work is a combination of packages and components.
 
+Inweb development, irregardless of the language, we gat the MVC{Model View Controller}
+In Django, we have the MVT{ Model View Template}
+Django is Fast as compared to other frameworks.
+      -Components
+    -Security
+    Scalability.
+
+
+DJANGO INSTALLATION.¬windows
+
+django-admin --version
+pip install virtualenvwrapper-win  //for installation
+mkvirtualenv test  // this is creating the virtual environment
+pip install django  // this installs djnago on a virtual environment
+mkdir projects  // this is to keep all the projects in one folder.
+cd projects  // into projects.
+django-admin startproject muema
+cd muema // we want to access the manage.py file createdin the projects folder.
