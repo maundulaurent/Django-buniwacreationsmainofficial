@@ -20,3 +20,11 @@ django-admin startproject muema
 cd muema // we want to access the manage.py file createdin the projects folder.
 python manage.py runserver  // this opens a lightwheight server made for django
 ---Go to a web page and type the url provided.
+
+
+
+
+'''''''''
+to activate virtual environment,
+ . test/Scripts/activate    // test is the virtualenvironment. Activate it outside the envoironment.
+ Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted    ///if execution of scripts is not allowed.
