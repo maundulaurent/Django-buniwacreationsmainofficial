@@ -26,5 +26,6 @@ python manage.py runserver  // this opens a lightwheight server made for django
 
 '''''''''
 to activate virtual environment,
- . test/Scripts/activate    // test is the virtualenvironment. Activate it outside the envoironment.
+ . test/Scripts/activate  or  test/scripts/activate  // test is the virtualenvironment. Activate it outside the envoironment.
+deactivate   // type only this if you want to deactivate.
  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted    ///if execution of scripts is not allowed.
