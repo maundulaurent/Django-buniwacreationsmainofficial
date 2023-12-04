@@ -9,9 +9,38 @@ python manage.py createsuperuser
 python manage.py runserver
 
 
+Navigate to Your Project Directory:
+Open a terminal or command prompt and navigate to the directory where your Django project is located. This is the directory that contains your project's manage.py file.
+
+Create a Django App:
+Run the following command to create a new Django app. Replace "appname" with the desired name of your app.
+-----python manage.py startapp appname
+then,
+INSTALLED_APPS = [
+    # ...
+    'appname',
+]
+then,
+python manage.py makemigrations
+python manage.py migrate
+then,
+python manage.py createsuperuser
 
 
-  Here are the steps to create a virtual environment in Django:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Here are the steps to create a virtual environment in Django:
 
 Install Virtualenv (if not already installed):
 
