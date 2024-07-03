@@ -1648,12 +1648,56 @@ section {
 /* End the socials section */
 
 
+/* ============================= Profile Section =================================== */
+
+
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #006400;
+}
+
+.profile-button {
+  background: #81e681;
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: #006400;
+}
+
+.profile-button:focus {
+  background: #006400;
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: #006400;
+  box-shadow: none
+}
+
+.back:hover {
+  color: #006400;
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.add-experience:hover {
+  background: #006400;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #006400
+}
+
+
+/* ============================= End Profile Section ================================ */
+
+
 /* Portal Comiing Soon */
-
-
-
-
-
 
 .portal-body {
   height: 100%;

@@ -126,10 +126,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings for using an SMTP server
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.example'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'charlesmaundu16@gmail.com'
-EMAIL_HOST_PASSWORD = ''

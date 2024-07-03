@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.core.mail import send_mail
 from .models import *
 from .forms import *
 
@@ -113,9 +112,9 @@ def blog_details(request, pk):
         'total_comments': total_comments
         })
 
-
-def dash(request):
-    return render(request, "Buniwa/dash.html")
+@login_required
+def profile(request):
+    return render(request, "Buniwa/profile.html")
 
 def user_logout(request):
     logout(request)
@@ -138,28 +137,5 @@ def terms(request):
     return render(request, 'Buniwa/terms.html')
 
 def contact(request):
-    if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
-
-        # constructing the email
-
-        subject = f"Contact Form Submission from {name}"
-        message = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
-        from_email = 'charlesmaundu16@gmail.com'
-        recipient_list = ['charlesmaundu16@gmail.com']
-
-        # sending the email
-
-        send_mail(subject, message, from_email,recipient_list)
-
-        messages.success(request, "Your message has been sent!")
-        return redirect('contact')
-    else:
-        form = ContactForm()
-
-    return render(request, 'Buniwa/contact.html', {'form': form})
+    return render(request, 'Buniwa/contact.html')
     
