@@ -87,14 +87,54 @@
                 {% if user.is_authenticated %}
                 <div class="nav-item dropdown pe-3">
                     <a class="nav-link d-flex align-items-center pe-0" href="#">
-                        <img src="{% static 'images/b6.jpg' %}" alt="" class="" style="width: 50px; height: 50px; border-radius: 34px;">
+                        <!-- <img src="{% static 'images/b6.jpg' %}" alt="" class="" style="width: 50px; height: 50px; border-radius: 34px;"> -->
+                        <img src="{{ profile_photo_url }}" alt="" class="" style="width: 50px; height: 50px; border-radius: 34px;">
+                        <!-- <img class="rounded-circle mt-5" width="150px" src="{{ profile_photo_url }}"> -->
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end profile" style="right: 0;">
                         <li class="dropdown-header">
                             <h6>{{ user.first_name }} {{ user.last_name }}</h6>
                             <!-- <span>Web Engineer</span> -->
-                            <span>Dashboard</span>
+                            <span>{{ user.email }}</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="" >
+
+                                <span>Contacts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="" >
+
+                                <span>Account Security</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="" >
+                                <span>Email History</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}" >
+                                <span>Your Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="" >
+                                <span>Change Password</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="" >
+                                <span>Security Settings</span>
+                            </a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -102,7 +142,7 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
-                            <i class="bi bi-box-arrow-right"></i>
+                            <i class="bi bi-box-arrow-left"></i>
                             <span>Sign Out</span>
                             </a>
                         </li>

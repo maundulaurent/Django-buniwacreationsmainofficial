@@ -30,16 +30,16 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right" style="color: #006400;">Profile Settings</h4>
                 </div>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
                     {% csrf_token %}
                     <div class="row mt-2">
                         <div class="col-md-6">
                             <label class="labels">First Name</label>
-                            <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ form.first_name.value|default:user.first_name }}">
+                            <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ user.first_name }}">
                         </div>
                         <div class="col-md-6">
                             <label class="labels">Last Name</label>
-                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ form.last_name.value|default:user.last_name }}">
+                            <input type="text" name="last_name" class="form-control" placeholder="Last Name" value="{{ user.last_name }}">
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -66,23 +66,12 @@
                             <input type="text" class="form-control" placeholder="state" name="state_region" value="{{ user_details.state_region }}">
                         </div>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success mt-2">Save Changes</button>
+                        </div>
+                    </div>
                 </form>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience">
-                    <span>Membership</span>
-                    <span class="border px-3 p-1 add-experience">
-                        <i class="fa fa-plus"></i>&nbsp;accounts
-                    </span>
-                </div>
-                <br>
-                <div class="col-md-12">
-                    <label class="labels">Work accounts</label>
-                    <input type="text" class="form-control" placeholder="experience" value="">
-                </div>
-                <br>
             </div>
         </div>
     </div>

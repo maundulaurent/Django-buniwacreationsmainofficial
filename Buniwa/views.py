@@ -6,6 +6,8 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 import os
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 
@@ -13,8 +15,11 @@ import os
 # Create your views here.
 
 def index(request):
+    if request.user.is_authenticated:
+        user = request.user
+        user_details, created = UserDetails.objects.get_or_create(user=user)
     logos = theCompany.objects.all()
-    return render(request, 'Buniwa/index.html', {'logos':logos})
+    return render(request, 'Buniwa/index.html', {'logos': logos})
 
 def register(request):
     if request.method == 'POST':
@@ -117,10 +122,10 @@ def blog_details(request, pk):
 def profile(request):
     user = request.user
     user_details, created = UserDetails.objects.get_or_create(user=user)
-
     profile_photo_url = user_details.profile_photo.url if user_details.profile_photo else 'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
 
     if request.method == 'POST':
+        # Check for profile photo upload or removal
         if 'profile_photo' in request.FILES:
             if user_details.profile_photo:
                 if os.path.isfile(user_details.profile_photo.path):
@@ -139,18 +144,18 @@ def profile(request):
             messages.success(request, 'Profile photo removed successfully.')
             return redirect('profile')
 
+        # Handle profile update
         else:
             form = ProfileForm(request.POST, request.FILES, instance=user_details)
             if form.is_valid():
-                user.first_name = form.cleaned_data.get('first_name', user.first_name)
-                user.last_name = form.cleaned_data.get('last_name', user.last_name)
-                user.save()
-
                 form.save()
+                user.first_name = request.POST.get('first_name', user.first_name)
+                user.last_name = request.POST.get('last_name', user.last_name)
+                user.save()
                 messages.success(request, 'Your profile has been updated successfully.')
                 return redirect('profile')
             else:
-                print("Form errors:", form.errors)
+                print("Profile form errors:", form.errors)
     else:
         form = ProfileForm(instance=user_details)
 
@@ -160,7 +165,6 @@ def profile(request):
         'profile_photo_url': profile_photo_url,
         'form': form
     })
-
 
 
 

@@ -29,6 +29,9 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'username', 'email']
 
 class ProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, required=False)
+    last_name = forms.CharField(max_length=30, required=False)
+
     class Meta:
         model = UserDetails
-        fields = ['profile_photo', 'additional_name', 'mobile_number', 'country', 'state_region']
+        fields = ['additional_name', 'mobile_number', 'country', 'state_region', 'profile_photo']

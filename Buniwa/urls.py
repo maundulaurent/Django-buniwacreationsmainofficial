@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -23,6 +24,6 @@ urlpatterns = [
     path('testimonial',views.testimonial, name="testimonial"),
     path('terms',views.terms, name="terms"),
     path('blog/<int:pk>/',views.blog_details, name="tester"),
-
+    path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
