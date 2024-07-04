@@ -1,6 +1,7 @@
 from django import forms
 from .models import blogComment
 from .models import TextEntry
+from .models import UserDetails
 from django.contrib.auth.models import User
 
 
@@ -25,4 +26,9 @@ class ContactForm(forms.Form):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'username', 'email']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = ['profile_photo', 'additional_name', 'mobile_number', 'country', 'state_region']

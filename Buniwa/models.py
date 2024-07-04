@@ -131,3 +131,15 @@ class theCompany(models.Model):
     class Meta:
         verbose_name_plural = 'Company Logos'
 
+class UserDetails(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = models.ImageField(upload_to='author_images/', blank=True, null=True)
+    additional_name = models.CharField(max_length=100, blank=True, null=True)
+    mobile_number = models.CharField(max_length=20, blank=True, null=True)
+    country = models.CharField(max_length=100, blank=True, null=True)
+    state_region = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
+    class Meta:
+        verbose_name_plural = 'User Details'

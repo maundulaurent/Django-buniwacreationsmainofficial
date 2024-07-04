@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
 from .forms import *
+import os
 
 
 
@@ -114,7 +115,54 @@ def blog_details(request, pk):
 
 @login_required
 def profile(request):
-    return render(request, "Buniwa/profile.html")
+    user = request.user
+    user_details, created = UserDetails.objects.get_or_create(user=user)
+
+    profile_photo_url = user_details.profile_photo.url if user_details.profile_photo else 'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg'
+
+    if request.method == 'POST':
+        if 'profile_photo' in request.FILES:
+            if user_details.profile_photo:
+                if os.path.isfile(user_details.profile_photo.path):
+                    os.remove(user_details.profile_photo.path)
+            user_details.profile_photo = request.FILES['profile_photo']
+            user_details.save()
+            messages.success(request, 'Profile photo updated successfully.')
+            return redirect('profile')
+
+        elif 'remove_photo' in request.POST:
+            if user_details.profile_photo:
+                if os.path.isfile(user_details.profile_photo.path):
+                    os.remove(user_details.profile_photo.path)
+                user_details.profile_photo = None
+                user_details.save()
+            messages.success(request, 'Profile photo removed successfully.')
+            return redirect('profile')
+
+        else:
+            form = ProfileForm(request.POST, request.FILES, instance=user_details)
+            if form.is_valid():
+                user.first_name = form.cleaned_data.get('first_name', user.first_name)
+                user.last_name = form.cleaned_data.get('last_name', user.last_name)
+                user.save()
+
+                form.save()
+                messages.success(request, 'Your profile has been updated successfully.')
+                return redirect('profile')
+            else:
+                print("Form errors:", form.errors)
+    else:
+        form = ProfileForm(instance=user_details)
+
+    return render(request, 'Buniwa/profile.html', {
+        'user': user,
+        'user_details': user_details,
+        'profile_photo_url': profile_photo_url,
+        'form': form
+    })
+
+
+
 
 def user_logout(request):
     logout(request)
