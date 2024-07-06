@@ -168,7 +168,7 @@ def profile(request):
 
 
 
-def user_logout(request):
+def user_logout(request):#User Logs out
     logout(request)
     return redirect('index')
 
