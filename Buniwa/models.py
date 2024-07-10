@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
+from PIL import Image
 
 class theBlog(models.Model):
     title = models.CharField(max_length=100)
@@ -138,6 +139,9 @@ class UserDetails(models.Model):
     mobile_number = models.CharField(max_length=20, blank=True, null=True)
     country = models.CharField(max_length=100, blank=True, null=True)
     state_region = models.CharField(max_length=100, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # Call the parent class's save method
 
     def __str__(self):
         return self.user.username

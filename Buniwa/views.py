@@ -68,8 +68,8 @@ def career(request):
     return render(request, 'Buniwa/career.html')
 
 # @login_required(login_url="signin")
-def projects(request):
-    return render(request, "Buniwa/projects.html")
+def portal(request):
+    return render(request, "Buniwa/c_portal.html")
 
 def faqs(request):
     accordion_items = theFaqs.objects.all()

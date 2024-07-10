@@ -25,7 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Buniwa',
+    'Portal',
 ]
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 1800  # 30 minutes
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Expire sessions when the browser is closed
+SESSION_SAVE_EVERY_REQUEST = True  # Save the session to the database on every request
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

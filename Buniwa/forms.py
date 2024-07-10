@@ -3,7 +3,7 @@ from .models import blogComment
 from .models import TextEntry
 from .models import UserDetails
 from django.contrib.auth.models import User
-
+from PIL import Image
 
 
 class blogCommentForm(forms.ModelForm):
@@ -35,3 +35,14 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ['additional_name', 'mobile_number', 'country', 'state_region', 'profile_photo']
+    def clean_profile_photo(self):
+        profile_photo = self.cleaned_data.get('profile_photo')
+        if profile_photo:
+            img = Image.open(profile_photo)
+            if img.size != (590, 560):
+                # Add an error message to the form's profile_photo field
+                raise forms.ValidationError("The profile photo must be 590x560 pixels. Please choose a different image.")
+            
+            elif img.size <= (250, 280):
+                raise forms.ValidationError("The Profile Photo should be larger than 250x280. Please Select a different one")
+        return profile_photo
