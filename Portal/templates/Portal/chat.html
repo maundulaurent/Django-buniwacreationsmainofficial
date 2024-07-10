@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Chat with Admin</h1>
+        <div class="card">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for message in messages %}
+                        <li class="list-group-item">
+                            <strong>{{ message.sender.username }}:</strong> {{ message.message }} <small class="text-muted">{{ message.timestamp }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-3">Send Message</button>
+        </form>
+        <a href="{% url 'client_portal' %}" class="btn btn-secondary mt-3">Back to Client Portal</a>
+    </div>
+</body>
+</html>

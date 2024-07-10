@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 15px;
+            height: 100vh;
+        }
+        .content {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 sidebar">
+                <h2>Admin Portal</h2>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                </ul>
+            </nav>
+            <main role="main" class="col-md-10 ml-sm-auto content">
+                <h1>Project Requests</h1>
+                <div class="row">
+                    {% for request in requests %}
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-header">{{ request.title }}</div>
+                                <div class="card-body">
+                                    <p>{{ request.description }}</p>
+                                    <p>Status: {{ request.status }}</p>
+                                    <a href="{% url 'approve_request' request.id %}" class="btn btn-success">Approve</a>
+                                    <a href="{% url 'add_milestone' request.id %}" class="btn btn-primary">Add Milestone</a>
+                                    <a href="{% url 'view_project_details' request.id %}" class="btn btn-info">Project Details</a>
+                                    {% if request.status == 'Approved' %}
+                                        <a href="{% url 'complete_project' request.id %}" class="btn btn-warning">Complete Project</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a href="{% url 'chat' %}" class="btn btn-secondary mt-3">Chat with Clients</a>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
