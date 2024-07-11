@@ -1,54 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Portal</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-        .sidebar {
-            background-color: #f8f9fa;
-            padding: 15px;
-            height: 100vh;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
         }
-        .content {
-            padding: 15px;
+
+        h2 {
+            color: #333;
+        }
+
+        #login-prompt, #projects {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .welcome-message {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .project-card h3 {
+            margin: 0;
+        }
+
+        .project-card p {
+            margin: 5px 0 0;
+        }
+
+        .chat-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0084ff;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .project-section {
+            margin-bottom: 30px;
+        }
+
+        .project-section h2 {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 sidebar">
-                <h2>Client Portal</h2>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                </ul>
-            </nav>
-            <main role="main" class="col-md-10 ml-sm-auto content">
-                <h1>Project Requests</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary mb-3">Request Project</button>
-                </form>
-                <div class="row">
-                    {% for request in requests %}
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-header">{{ request.title }}</div>
-                                <div class="card-body">
-                                    <p>{{ request.description }}</p>
-                                    <p>Status: {{ request.status }}</p>
-                                    <a href="{% url 'view_project_details' request.id %}" class="btn btn-info">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <a href="{% url 'chat' %}" class="btn btn-secondary mt-3">Chat with Admin</a>
-            </main>
+    <h2>Client Portal</h2>
+    {% if user.is_authenticated %}
+        <div class="welcome-message">
+            <p>Welcome, {{ user.username }}!</p>
+            <a href="{% url 'logout' %}"><button>Logout</button></a>
         </div>
-    </div>
+
+        <div class="project-section">
+            <h2>Pending Projects</h2>
+            <div id="pending-projects">
+                {% for project in pending_projects %}
+                    <div class="project-card">
+                        <h3>{{ project.project_name }}</h3>
+                        <p>{{ project.description }}</p>
+                        <p>Status: Awaiting Approval</p>
+                    </div>
+                {% empty %}
+                    <p>No pending projects at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h2>Active Projects</h2>
+            <div id="active-projects">
+                {% for project in active_projects %}
+                    <div class="project-card">
+                        <h3>{{ project.project_name }}</h3>
+                        <p>{{ project.description }}</p>
+                        <p>Status: In Progress</p>
+                    </div>
+                {% empty %}
+                    <p>No active projects at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="project-section">
+            <h2>Completed Projects</h2>
+            <div id="completed-projects">
+                {% for project in completed_projects %}
+                    <div class="project-card">
+                        <h3>{{ project.project_name }}</h3>
+                        <p>{{ project.description }}</p>
+                        <p>Status: Completed</p>
+                    </div>
+                {% empty %}
+                    <p>No completed projects at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h2>Request a New Project</h2>
+        <form method="post" action="{% url 'client_portal' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Request Project</button>
+        </form>
+
+        <h2>Send a Message</h2>
+        <form method="post" action="{% url 'client_portal' %}">
+            {% csrf_token %}
+            {{ message_form.as_p }}
+            <button type="submit">Send Message</button>
+        </form>
+
+    {% else %}
+        <div id="login-prompt">
+            <p>Log in to see projects</p>
+            <a href="{% url 'login' %}"><button>Login</button></a>
+        </div>
+    {% endif %}
 </body>
 </html>

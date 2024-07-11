@@ -1,12 +1,16 @@
+# Portal/urls.py
+
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.client_portal, name='client_portal'),
-    path('admin/', views.admin_portal, name='admin_portal'),
-    path('admin/approve/<int:request_id>/', views.approve_request, name='approve_request'),
-    path('admin/add_milestone/<int:request_id>/', views.add_milestone, name='add_milestone'),
-    path('admin/view_project_details/<int:request_id>/', views.view_project_details, name='view_project_details'),
-    path('admin/complete_project/<int:request_id>/', views.complete_project, name='complete_project'),
-    path('chat/', views.chat, name='chat'),  # Add this line
+    path('login/', views.login_view, name='login'),  # Simple login view
+    path('admin/', views.admin_portal, name='admin_portal'),  # Admin portal view
+    path('accept_request/<int:request_id>/', views.accept_request, name='accept_request'),  # Accept Request
+    path('create_milestones/<int:request_id>/', views.create_milestones, name='create_milestones'),  # Create Milestones
+    path('complete_project/<int:request_id>/', views.complete_project, name='complete_project'),  # Complete Project
+    # path('logout/', auth_views.LogoutView.as_view(next_page='client_portal'), name='logout'),
+    path('reply_message/<int:user_id>/', views.reply_message, name='reply_message'),
 ]
