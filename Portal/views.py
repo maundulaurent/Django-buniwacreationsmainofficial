@@ -100,18 +100,27 @@ def create_milestones(request, request_id):
     project_request = get_object_or_404(ProjectRequest, id=request_id)
 
     if request.method == 'POST':
-        form = MilestoneForm(request.POST)
-        if form.is_valid():
-            milestone = form.save(commit=False)
-            milestone.project = project_request
-            milestone.save()
-            return JsonResponse({'success' : True})
-            # return redirect('create_milestones', request_id=request_id)
+        if 'accept_request' in request.POST:
+            project_request.status = 'In Progress'
+            project_request.save()
+            return JsonResponse({'success': True, 'status': 'In Progress'})
+
+        elif 'complete_project' in request.POST:
+            project_request.status = 'Completed'
+            project_request.save()
+            return JsonResponse({'success': True, 'status': 'Completed'})
+
         else:
-            return JsonResponse({'success' : False, 'errors':form.errors})
+            form = MilestoneForm(request.POST)
+            if form.is_valid():
+                milestone = form.save(commit=False)
+                milestone.project = project_request
+                milestone.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'errors': form.errors})
     else:
         form = MilestoneForm()
-        
 
     milestones = Milestone.objects.filter(project=project_request)
 

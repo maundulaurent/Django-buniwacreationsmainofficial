@@ -142,7 +142,9 @@
                     <p>Description: {{ request.description }}</p>
                     <p>Status: {{ request.status }}</p>
                     <div class="buttons">
-                        {% if request.status == 'Requested' %}
+                        <a href="{% url 'create_milestones' request.id %}" class="details-btn">Details</a>
+
+                        <!-- {% if request.status == 'Requested' %}
                             <form method="post" action="{% url 'accept_request' request.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="accept-btn">Accept Request</button>
@@ -155,7 +157,7 @@
                                 {% csrf_token %}
                                 <button type="submit" class="complete-btn">Complete Project</button>
                             </form>
-                        {% endif %}
+                        {% endif %} -->
                     </div>
                 </div>
             {% endfor %}

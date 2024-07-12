@@ -162,8 +162,27 @@
             <p><strong>Owner:</strong> {{ project_request.user.username }}</p>
             <p><strong>Request Date:</strong> {{ project_request.created_at }}</p>
         </div>
+        <div class="buttons">
+            {% if project_request.status == 'Requested' %}
+                <form id="AcceptBtn" method="post" action="">
+                    {% csrf_token %}
+                    <button type="submit" name="accept_request" class="accept-btn">Accept Request</button>
+                </form>
+            {% elif project_request.status == 'In Progress' %}
+            <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Create/Add Milestone</button>
+            </form>
+                <!-- <form method="post" action="">
+                    {% csrf_token %}
+                    <button type="submit" name="complete_project" class="complete-btn">Complete Project</button>
+                </form> -->
+            {% endif %}
+        </div>
+        
 
-        <button id="createMilestoneBtn">Create/Add Milestone</button>
+        <!-- <button id="createMilestoneBtn">Create/Add Milestone</button> -->
 
         <h2>Milestones</h2>
 
@@ -191,12 +210,19 @@
 
         <div class="milestone-card">
             <div>
-                <h3>Complete</h3>
-                <p>If all fields are completed successfully, complete.</p>
+            {% if project.status == 'In Progress' %}
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <h3>Complete</h3>
+                    <!-- <button type="submit" name="complete_project" class="complete-btn">Complete Project</button> -->
+                    <p>If all fields are completed successfully, complete.</p>
+                    <div class="actions">
+                        <a href="{% url 'complete_project' project_request.id %}">Complete Project</a>
+                    </div>
+                </form>
+            {% endif %}
             </div>
-            <div class="actions">
-                <a href="{% url 'complete_project' project_request.id %}">Complete Project</a>
-            </div>
+            
         </div>
     </div>
 
@@ -205,11 +231,18 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Create Milestone</h2>
-            <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}">
+            <!-- <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit">Create Milestone</button>
-            </form>
+            </form> -->
+            {% if project_request.status == 'In Progress' %}
+                <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Create/Add Milestone</button>
+                </form>
+            {% endif %}
         </div>
     </div>
 
