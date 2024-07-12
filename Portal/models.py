@@ -19,3 +19,15 @@ class Message(models.Model):
 
     def __str__(self):
         return f'Message from {self.user.username} at {self.timestamp}'
+    
+class Milestone(models.Model):
+    project = models.ForeignKey(ProjectRequest, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    due_date = models.DateField()
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+    
+    

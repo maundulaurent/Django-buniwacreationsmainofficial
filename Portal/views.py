@@ -2,10 +2,12 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from .models import ProjectRequest
+from .models import *
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
 
 @login_required
 def client_portal(request):
@@ -41,7 +43,14 @@ def client_portal(request):
         'user': request.user
     })
 
+
+def is_admin(user):
+    return user.is_superuser  # Ensure only admins can access this view
+
+
+
 @login_required
+@user_passes_test(is_admin)
 def admin_portal(request):
     project_requests = ProjectRequest.objects.all()
     messages = Message.objects.all().order_by('-timestamp')
@@ -73,8 +82,6 @@ def login_view(request):
     return render(request, 'Portal/login.html')
 
 
-def is_admin(user):
-    return user.is_superuser  # Ensure only admins can access this view
 
 @user_passes_test(is_admin)
 def accept_request(request, request_id):
@@ -87,34 +94,67 @@ def accept_request(request, request_id):
 
 from .forms import MilestoneForm
 
-@user_passes_test(is_admin)
+
+@login_required
 def create_milestones(request, request_id):
     project_request = get_object_or_404(ProjectRequest, id=request_id)
+
     if request.method == 'POST':
         form = MilestoneForm(request.POST)
         if form.is_valid():
-            # Handle the form submission, save milestones related to the project
-            # Here you need to implement the actual milestone creation logic
-            # For example:
-            # Milestone.objects.create(
-            #     project_request=project_request,
-            #     title=form.cleaned_data['title'],
-            #     description=form.cleaned_data['description'],
-            #     due_date=form.cleaned_data['due_date']
-            # )
-            return redirect('admin_portal')
+            milestone = form.save(commit=False)
+            milestone.project = project_request
+            milestone.save()
+            return JsonResponse({'success' : True})
+            # return redirect('create_milestones', request_id=request_id)
+        else:
+            return JsonResponse({'success' : False, 'errors':form.errors})
     else:
         form = MilestoneForm()
+        
 
-    return render(request, 'Portal/create_milestones.html', {'form': form})
+    milestones = Milestone.objects.filter(project=project_request)
+
+    return render(request, 'Portal/create_milestones.html', {
+        'form': form,
+        'milestones': milestones,
+        'project_request': project_request,
+    })
 
 
-@user_passes_test(is_admin)
+@login_required
+def edit_milestone(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+
+    if request.method == 'POST':
+        form = MilestoneForm(request.POST, instance=milestone)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = MilestoneForm(instance=milestone)
+
+    return JsonResponse({
+        'form': form.as_p(),
+        'milestone_id': milestone_id,
+    })
+
+@login_required
+def delete_milestone(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    milestone.delete()
+    return redirect('create_milestones', request_id=milestone.project.id)
+
+@login_required
 def complete_project(request, request_id):
     project_request = get_object_or_404(ProjectRequest, id=request_id)
     project_request.status = 'Completed'
     project_request.save()
-    return redirect('admin_portal')
+    return redirect('admin_portal')  # Or another page where the admin can view the project details
+
+
 
 @login_required
 def reply_message(request, user_id):

@@ -13,4 +13,6 @@ urlpatterns = [
     path('complete_project/<int:request_id>/', views.complete_project, name='complete_project'),  # Complete Project
     # path('logout/', auth_views.LogoutView.as_view(next_page='client_portal'), name='logout'),
     path('reply_message/<int:user_id>/', views.reply_message, name='reply_message'),
+    path('delete_milestone/<int:milestone_id>/', views.delete_milestone, name='delete_milestone'),
+    path('edit_milestone/<int:milestone_id>/', views.edit_milestone, name='edit_milestone'),
 ]

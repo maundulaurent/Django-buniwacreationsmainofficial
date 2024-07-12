@@ -1,7 +1,8 @@
 # Portal/forms.py
 
 from django import forms
-from .models import ProjectRequest, Message
+from .models import *
+from datetime import datetime
 
 
 class ProjectRequestForm(forms.ModelForm):
@@ -9,10 +10,13 @@ class ProjectRequestForm(forms.ModelForm):
         model = ProjectRequest
         fields = ['project_name', 'description']
 
-class MilestoneForm(forms.Form):
-    title = forms.CharField(max_length=100)
-    description = forms.CharField(widget=forms.Textarea)
-    due_date = forms.DateField()
+class MilestoneForm(forms.ModelForm):
+    class Meta:
+        model = Milestone
+        fields = ['title', 'description', 'due_date']
+        widgets = {
+            'due_date': forms.DateInput(attrs={'type': 'date', 'value': datetime.today().strftime('%Y-%m-%d')}),
+        }
 
 class MessageForm(forms.ModelForm):
     class Meta:

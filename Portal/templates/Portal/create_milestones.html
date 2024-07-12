@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details and Milestones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        form {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-field input, .form-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-field textarea {
+            height: 100px;
+        }
+
+        button {
+            background-color: #0084ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .milestone-card {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .milestone-card h3 {
+            margin: 0;
+        }
+
+        .milestone-card p {
+            margin: 5px 0 0;
+        }
+
+        .milestone-card .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .milestone-card .actions a {
+            color: #0084ff;
+            text-decoration: none;
+        }
+
+        .milestone-card .actions a:hover {
+            color: #005bb5;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .project-details {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .project-details h3 {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        .project-details p {
+            margin: 5px 0;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="project-details">
+            <h3>Project Details</h3>
+            <p><strong>Project Name:</strong> {{ project_request.project_name }}</p>
+            <p><strong>Description:</strong> {{ project_request.description }}</p>
+            <p><strong>Owner:</strong> {{ project_request.user.username }}</p>
+            <p><strong>Request Date:</strong> {{ project_request.created_at }}</p>
+        </div>
+
+        <button id="createMilestoneBtn">Create/Add Milestone</button>
+
+        <h2>Milestones</h2>
+
+        <div class="milestone-card">
+            <div>
+                <h3>Start</h3>
+                <p>The Start, means the project is accepted</p>
+            </div>
+        </div>
+
+        {% for milestone in milestones %}
+            <div class="milestone-card">
+                <div>
+                    <h3>{{ milestone.title }}</h3>
+                    <p>{{ milestone.description }}</p>
+                    <p>Due date: {{ milestone.due_date }}</p>
+                    <p>Status: {{ milestone.status }} </p>
+                </div>
+                <div class="actions">
+                    <a href="{% url 'edit_milestone' milestone.id %}" class="edit-milestone" data-id="{{ milestone.id }}">Edit</a>
+                    <a href="{% url 'delete_milestone' milestone.id %}">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="milestone-card">
+            <div>
+                <h3>Complete</h3>
+                <p>If all fields are completed successfully, complete.</p>
+            </div>
+            <div class="actions">
+                <a href="{% url 'complete_project' project_request.id %}">Complete Project</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal for Creating a Milestone -->
+    <div id="createMilestoneModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Milestone</h2>
+            <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Create Milestone</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- The Modal for Editing a Milestone -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Milestone</h2>
+            <form id="editMilestoneForm" method="post">
+                {% csrf_token %}
+                <div id="editMilestoneFormContent"></div>
+                <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            var createModal = $('#createMilestoneModal');
+            var editModal = $('#editModal');
+            var formContent = $('#editMilestoneFormContent');
+
+            // Show the create milestone modal
+            $('#createMilestoneBtn').on('click', function() {
+                createModal.show();
+            });
+
+            // Show the edit milestone modal
+            $('.edit-milestone').on('click', function() {
+                var milestoneId = $(this).data('id');
+                $.ajax({
+                    url: "{% url 'edit_milestone' '0' %}".replace('0', milestoneId),
+                    method: 'GET',
+                    success: function(data) {
+                        formContent.html(data.form);
+                        formContent.append('<input type="hidden" name="id" value="' + milestoneId + '">');
+                        editModal.show();
+                    }
+                });
+                return false;
+            });
+
+            // Close modals
+            $('.close').on('click', function() {
+                createModal.hide();
+                editModal.hide();
+            });
+
+            // Submit create milestone form
+            $('#createMilestoneForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: "{% url 'create_milestones' project_request.id %}",
+                    method: 'POST',
+                    data: formData,
+                    success: function(data) {
+                        if (data.success) {
+                            location.reload();//reload the page on success
+                        } else {
+                            createModal.find('.modal-content').html(data.form);
+                        }
+                    }
+                });
+            });
+
+            // Submit edit milestone form
+            $('#editMilestoneForm').on('submit', function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                var milestoneId = $(this).find('input[name="id"]').val();
+                $.ajax({
+                    url: "{% url 'edit_milestone' '0' %}".replace('0', milestoneId),
+                    method: 'POST',
+                    data: formData,
+                    success: function(data) {
+                        if (data.success) {
+                            location.reload();
+                        } else {
+                            formContent.html(data.form);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
