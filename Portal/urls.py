@@ -15,4 +15,6 @@ urlpatterns = [
     path('reply_message/<int:user_id>/', views.reply_message, name='reply_message'),
     path('delete_milestone/<int:milestone_id>/', views.delete_milestone, name='delete_milestone'),
     path('edit_milestone/<int:milestone_id>/', views.edit_milestone, name='edit_milestone'),
-]
+    path('toggle_milestone_status/<int:milestone_id>/', views.toggle_milestone_status, name='toggle_milestone_status'),
+    path('change_to_progress/<int:project_id>/', views.change_to_progress, name='change_to_progress'),
+    ]

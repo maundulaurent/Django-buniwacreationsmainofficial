@@ -6,6 +6,16 @@ from .models import *
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+
+@login_required
+@require_POST
+def toggle_milestone_status(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    milestone.completed = not milestone.completed
+    milestone.save()
+    return redirect('create_milestones', request_id=milestone.project.id)
+
 from django.http import JsonResponse
 
 
@@ -123,13 +133,25 @@ def create_milestones(request, request_id):
         form = MilestoneForm()
 
     milestones = Milestone.objects.filter(project=project_request)
+    all_milestones_complete = all(milestone.completed for milestone in milestones)
 
     return render(request, 'Portal/create_milestones.html', {
         'form': form,
         'milestones': milestones,
         'project_request': project_request,
+        'all_milestones_complete': all_milestones_complete,
     })
 
+
+
+
+@login_required
+@require_POST
+def toggle_milestone_status(request, milestone_id):
+    milestone = get_object_or_404(Milestone, id=milestone_id)
+    milestone.completed = not milestone.completed
+    milestone.save()
+    return redirect('create_milestones', request_id=milestone.project.id)
 
 @login_required
 def edit_milestone(request, milestone_id):
@@ -173,3 +195,31 @@ def reply_message(request, user_id):
         if content:
             Message.objects.create(user=user, content=content)
     return redirect('admin_portal')
+
+def change_to_progress(request, project_id):
+    project = get_object_or_404(ProjectRequest, id=project_id)
+
+    if request.method == "POST":
+        # Change project status to 'In Progress'
+        project.status = 'In Progress'
+        project.save()
+        
+        # Fetch existing milestones for the project
+        milestones = Milestone.objects.filter(project=project)
+
+        # Check if there are any milestones
+        if milestones.exists():
+            # Prepare a new milestone form to add more milestones if needed
+            form = MilestoneForm()
+        else:
+            # If no milestones exist, prepare the form to create new milestones
+            form = MilestoneForm()
+        
+        return render(request, 'Portal/create_milestones.html', {
+            'form': form,
+            'milestones': milestones,
+            'project_request': project,
+            'all_milestones_complete': False  # No way to be complete if there are no milestones
+        })
+    
+    return redirect('project_details', project_id=project.id) 
