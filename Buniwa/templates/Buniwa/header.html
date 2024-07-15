@@ -31,11 +31,13 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle {% if request.path == '/services' %}active{% endif %}" data-bs-toggle="dropdown">Services</a>
                         <div class="dropdown-menu bg-light">
-                            <a href="{% url 'web_development' %}" class="dropdown-item  {% if request.path == '/web_development' %}active{% endif %}">Web Development</a>
-                            <a href="{% url 'portfolio' %}" class="dropdown-item  {% if request.path == '/portfolio' %}active{% endif %}">Portfolio</a>
-                            <a href="{% url 'testimonial' %}" class="dropdown-item  {% if request.path == '/testimonial' %}active{% endif %}">Testimonial</a>
-                            <a href="{% url 'team' %}" class="dropdown-item  {% if request.path == '/team' %}active{% endif %}">Our Team</a>
-                            <a href="{% url 'faqs' %}" class="dropdown-item  {% if request.path == '/faqs' %}active{% endif %}">F.A.Qs</a>
+                            <a href="{% url 'web_development' %}" class="dropdown-item  {% if request.path == '/web-development' %}active{% endif %}">Web Development</a>
+                            <a href="{% url 'portfolio' %}" class="dropdown-item  {% if request.path == '/portfolio' %}active{% endif %}">SEO</a>
+                            <a href="{% url 'testimonial' %}" class="dropdown-item  {% if request.path == '/testimonial' %}active{% endif %}">Social Media Marketing</a>
+                            <a href="{% url 'team' %}" class="dropdown-item  {% if request.path == '/team' %}active{% endif %}">Content Creation</a>
+                            <a href="{% url 'faqs' %}" class="dropdown-item  {% if request.path == '/faqs' %}active{% endif %}">Paid Advertising</a>
+                            <a href="{% url 'faqs' %}" class="dropdown-item  {% if request.path == '/faqs' %}active{% endif %}">Audio & Video Production</a>
+                            <a href="{% url 'faqs' %}" class="dropdown-item  {% if request.path == '/faqs' %}active{% endif %}">Location Based Marketing</a>
 
                         </div>
                     </div>
