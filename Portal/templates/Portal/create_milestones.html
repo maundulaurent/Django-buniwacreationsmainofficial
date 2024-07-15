@@ -208,7 +208,6 @@
                 {% endif %}
             </div>
         </div>
-
         {% for milestone in milestones %}
         <div class="milestone-card">
             <div>
@@ -220,19 +219,22 @@
             <div class="actions">
                 <a href="{% url 'edit_milestone' milestone.id %}" class="edit-milestone" data-id="{{ milestone.id }}">Edit</a>
                 <a href="{% url 'delete_milestone' milestone.id %}">Delete</a>
-                <form method="post" action="{% url 'toggle_milestone_status' milestone.id %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-link">
-                        {% if milestone.completed %}
-                            Mark as In Progress
-                        {% else %}
-                            Mark as Completed
-                        {% endif %}
-                    </button>
-                </form>
+                {% if project_request.status != 'Completed' %}
+                    <form method="post" action="{% url 'toggle_milestone_status' milestone.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link">
+                            {% if milestone.completed %}
+                                Mark as In Progress
+                            {% else %}
+                                Mark as Completed
+                            {% endif %}
+                        </button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
+    
     
 
 {% if project_request.status == 'In Progress' %}

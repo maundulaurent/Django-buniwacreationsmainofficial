@@ -64,6 +64,10 @@ def services(request):
     service_items = theServices.objects.all()
     return render(request, 'Buniwa/services.html', {'service_items':service_items})
 
+def web_dev(request):
+    return render(request, 'Buniwa/web_development.html')
+
+
 def career(request):
     return render(request, 'Buniwa/career.html')
 

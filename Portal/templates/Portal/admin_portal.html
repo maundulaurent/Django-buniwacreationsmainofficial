@@ -143,21 +143,6 @@
                     <p>Status: {{ request.status }}</p>
                     <div class="buttons">
                         <a href="{% url 'create_milestones' request.id %}" class="details-btn">Details</a>
-
-                        <!-- {% if request.status == 'Requested' %}
-                            <form method="post" action="{% url 'accept_request' request.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="accept-btn">Accept Request</button>
-                            </form>
-                        {% elif request.status == 'In Progress' %}
-                            <form method="get" action="{% url 'create_milestones' request.id %}">
-                                <button type="submit" class="milestones-btn">Create Milestones</button>
-                            </form>
-                            <form method="post" action="{% url 'complete_project' request.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="complete-btn">Complete Project</button>
-                            </form>
-                        {% endif %} -->
                     </div>
                 </div>
             {% endfor %}
