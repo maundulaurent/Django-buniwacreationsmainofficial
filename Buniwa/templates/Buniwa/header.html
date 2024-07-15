@@ -28,7 +28,18 @@
 
                         </div>
                     </div>
-                    <a href="{% url 'services' %}" class="nav-item nav-link {% if request.path == '/services' %}active{% endif %}">Services</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle {% if request.path == '/services' %}active{% endif %}" data-bs-toggle="dropdown">Services</a>
+                        <div class="dropdown-menu bg-light">
+                            <a href="{% url 'web_development' %}" class="dropdown-item  {% if request.path == '/web_development' %}active{% endif %}">Web Development</a>
+                            <a href="{% url 'portfolio' %}" class="dropdown-item  {% if request.path == '/portfolio' %}active{% endif %}">Portfolio</a>
+                            <a href="{% url 'testimonial' %}" class="dropdown-item  {% if request.path == '/testimonial' %}active{% endif %}">Testimonial</a>
+                            <a href="{% url 'team' %}" class="dropdown-item  {% if request.path == '/team' %}active{% endif %}">Our Team</a>
+                            <a href="{% url 'faqs' %}" class="dropdown-item  {% if request.path == '/faqs' %}active{% endif %}">F.A.Qs</a>
+
+                        </div>
+                    </div>
+                    
                     <a href="{% url 'career' %}" class="nav-item nav-link {% if request.path == '/career' %} active {% endif %}">Careers</a>                   
                     <a href="{% url 'portal' %}" class="nav-item nav-link {% if request.path == '/portal' %}active{% endif %}">Customer Portal</a>
                     <a href="{% url 'blog' %}" class="nav-item nav-link {% if request.path == '/blog' %}active{% endif %}">Blog</a>
