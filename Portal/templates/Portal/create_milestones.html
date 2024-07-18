@@ -169,6 +169,7 @@
             <p><strong>Request Date:</strong> {{ project_request.created_at }}</p>
             
         </div>
+        
         <div class="buttons">
             {% if project_request.status == 'Requested' %}
                 <form id="AcceptBtn" method="post" action="">
@@ -178,10 +179,6 @@
             {% elif project_request.status == 'In Progress' %}
             <button id="createMilestoneBtn" class="btn btn-primary">Create/Add Milestone</button>
             
-                <!-- <form method="post" action="">
-                    {% csrf_token %}
-                    <button type="submit" name="complete_project" class="complete-btn">Complete Project</button>
-                </form> -->
             {% endif %}
         </div>
         

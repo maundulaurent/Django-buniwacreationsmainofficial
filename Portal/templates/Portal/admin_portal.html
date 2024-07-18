@@ -129,28 +129,39 @@
 <body>
     <h2>Admin Portal</h2>
     <h3>Project Requests</h3>
-<div class="row d-flex">
 
-<div class="col-md-9">
-    <div class="projects">
-        
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Project Title</th>
+            <th scope="col">Name of client</th>
+            <th scope="col"> Project Status</th>
+            <th scope="col"> Description</th>
+            <th scope="col"> Actions..</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
         {% if project_requests %}
             {% for request in project_requests %}
-                <div class="project-card">
-                    <h3>{{ request.project_name }}</h3>
-                    <p>Requested by: {{ request.user.username }}</p>
-                    <p>Description: {{ request.description }}</p>
-                    <p>Status: {{ request.status }}</p>
-                    <div class="buttons">
-                        <a href="{% url 'create_milestones' request.id %}" class="details-btn">Details</a>
-                    </div>
-                </div>
-            {% endfor %}
+          <tr>
+            <th scope="row">1</th>
+            <td>{{ request.project_name }}</td>
+            <td>{{ request.user.username }}</td>
+            <td>{{ request.status }}</td>
+            <td>{{ request.description }}</td>            
+            <td><a href="{% url 'create_milestones' request.id %}" class="btn btn-primary btn-sm">Details Page</a></td>
+          </tr>
+          {% endfor %}
         {% else %}
             <p>No project requests at the moment.</p>
         {% endif %}
-    </div>
-    </div>
+         
+        </tbody>
+      </table>
+<div class="row d-flex">
+
+
 
     <div class="col-md-3">
     <div class="message-section">
