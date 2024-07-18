@@ -284,19 +284,34 @@
     </div>
 {% endif %}
 
-
-
     </div>
 
+    <style>
+        .form-control-file {
+            display: block;
+            margin-top: 10px;
+        }
+        .image-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            max-height: 300px;
+        }
+    </style>
+    
     <!-- The Modal for Creating a Milestone -->
     <div id="createMilestoneModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Create Milestone</h2>
             {% if project_request.status == 'In Progress' %}
-                <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}">
+                <form id="createMilestoneForm" method="post" action="{% url 'create_milestones' project_request.id%}" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <div class="form-group">
+                        <label for="id_image">Upload Image</label>
+                        <input type="file" name="image" id="create_id_image" class="form-control-file" onchange="previewImage(event, 'create_image_preview')">
+                        <img id="create_image_preview" class="image-preview" style="display:none;">
+                    </div>
                     <button type="submit">Add Milestone</button>
                 </form>
             {% endif %}
@@ -308,9 +323,17 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Edit Milestone</h2>
-            <form id="editMilestoneForm" method="post">
+            <form id="editMilestoneForm" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div id="editMilestoneFormContent"></div>
+                <div class="form-group">
+                    <label for="edit_image">Upload Image</label>
+                    <input type="file" name="image" id="edit_id_image" class="form-control-file" onchange="previewImage(event, 'edit_image_preview')">
+                    <img id="edit_image_preview" class="image-preview" style="display:none;">
+                    {% if image_url %}
+                        <img src="{{ image_url }}" class="image-preview" id="existing_image_preview">
+                    {% endif %}
+                </div>
                 <button type="submit">Save Changes</button>
             </form>
         </div>
@@ -321,12 +344,12 @@
             var createModal = $('#createMilestoneModal');
             var editModal = $('#editModal');
             var formContent = $('#editMilestoneFormContent');
-
+        
             // Show the create milestone modal
             $('#createMilestoneBtn').on('click', function() {
                 createModal.show();
             });
-
+        
             // Show the edit milestone modal
             $('.edit-milestone').on('click', function() {
                 var milestoneId = $(this).data('id');
@@ -336,55 +359,93 @@
                     success: function(data) {
                         formContent.html(data.form);
                         formContent.append('<input type="hidden" name="id" value="' + milestoneId + '">');
+                        if (data.image_url) {
+                            showExistingImage(data.image_url, 'edit_image_preview');
+                        }
                         editModal.show();
                     }
                 });
                 return false;
             });
-
+        
             // Close modals
             $('.close').on('click', function() {
                 createModal.hide();
                 editModal.hide();
             });
-
+        
             // Submit create milestone form
             $('#createMilestoneForm').on('submit', function(e) {
                 e.preventDefault();
-                var formData = $(this).serialize();
+                var formData = new FormData(this);
                 $.ajax({
                     url: "{% url 'create_milestones' project_request.id %}",
                     method: 'POST',
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         if (data.success) {
-                            location.reload();//reload the page on success
+                            location.reload(); //reload the page on success
                         } else {
                             createModal.find('.modal-content').html(data.form);
                         }
                     }
                 });
             });
-
+        
             // Submit edit milestone form
             $('#editMilestoneForm').on('submit', function(e) {
                 e.preventDefault();
-                var formData = $(this).serialize();
+                var formData = new FormData(this);
                 var milestoneId = $(this).find('input[name="id"]').val();
                 $.ajax({
                     url: "{% url 'edit_milestone' '0' %}".replace('0', milestoneId),
                     method: 'POST',
                     data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         if (data.success) {
                             location.reload();
                         } else {
                             formContent.html(data.form);
+                            if (data.image_url) {
+                                showExistingImage(data.image_url, 'edit_image_preview');
+                            }
                         }
                     }
                 });
             });
         });
+        
+        function previewImage(event, previewId) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imgElement = document.getElementById(previewId);
+                imgElement.src = e.target.result;
+                imgElement.style.display = 'block';
+            }
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                const imgElement = document.getElementById(previewId);
+                imgElement.style.display = 'none';
+            }
+        }
+        
+        // If the modal is opened, ensure the existing image preview is shown
+        function showExistingImage(imageUrl, previewId) {
+            if (imageUrl) {
+                const imgElement = document.getElementById(previewId);
+                imgElement.src = imageUrl;
+                imgElement.style.display = 'block';
+            }
+        }
+        
     </script>
 </body>
 </html>

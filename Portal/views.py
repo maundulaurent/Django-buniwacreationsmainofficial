@@ -115,7 +115,7 @@ def create_milestones(request, request_id):
             return JsonResponse({'success': True, 'status': 'Completed'})
 
         else:
-            form = MilestoneForm(request.POST)
+            form = MilestoneForm(request.POST, request.FILES)
             if form.is_valid():
                 milestone = form.save(commit=False)
                 milestone.project = project_request
@@ -159,7 +159,7 @@ def edit_milestone(request, milestone_id):
     milestone = get_object_or_404(Milestone, id=milestone_id)
 
     if request.method == 'POST':
-        form = MilestoneForm(request.POST, instance=milestone)
+        form = MilestoneForm(request.POST, request.FILES, instance=milestone)
         if form.is_valid():
             form.save()
             return JsonResponse({'success': True})
@@ -171,6 +171,7 @@ def edit_milestone(request, milestone_id):
     return JsonResponse({
         'form': form.as_p(),
         'milestone_id': milestone_id,
+        'image_url': milestone.image.url if milestone.image else None,
     })
 
 @login_required
