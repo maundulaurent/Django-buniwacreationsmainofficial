@@ -26,6 +26,7 @@ class Milestone(models.Model):
     description = models.TextField()
     due_date = models.DateField()
     completed = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='milestone_images/', null=True, blank=True)
 
     def __str__(self):
         return self.title

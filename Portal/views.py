@@ -93,12 +93,6 @@ def login_view(request):
 
 
 
-@user_passes_test(is_admin)
-def accept_request(request, request_id):
-    project_request = get_object_or_404(ProjectRequest, id=request_id)
-    project_request.status = 'In Progress'
-    project_request.save()
-    return redirect('admin_portal')
 
 # Portal/views.py
 
@@ -139,10 +133,17 @@ def create_milestones(request, request_id):
         'form': form,
         'milestones': milestones,
         'project_request': project_request,
+        'request_id': request_id,
         'all_milestones_complete': all_milestones_complete,
     })
 
 
+@user_passes_test(is_admin)
+def accept_request(request, request_id):
+    project_request = get_object_or_404(ProjectRequest, id=request_id)
+    project_request.status = 'In Progress'
+    project_request.save()
+    return redirect('admin_portal')
 
 
 @login_required

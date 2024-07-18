@@ -13,7 +13,7 @@ class ProjectRequestForm(forms.ModelForm):
 class MilestoneForm(forms.ModelForm):
     class Meta:
         model = Milestone
-        fields = ['title', 'description', 'due_date']
+        fields = ['title', 'description', 'due_date', 'image']
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date', 'value': datetime.today().strftime('%Y-%m-%d')}),
         }

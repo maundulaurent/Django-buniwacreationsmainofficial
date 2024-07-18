@@ -169,17 +169,43 @@
             <p><strong>Request Date:</strong> {{ project_request.created_at }}</p>
             
         </div>
-        
+
         <div class="buttons">
             {% if project_request.status == 'Requested' %}
-                <form id="AcceptBtn" method="post" action="">
-                    {% csrf_token %}
-                    <button type="submit" name="accept_request" class="accept-btn">Accept Request</button>
-                </form>
-            {% elif project_request.status == 'In Progress' %}
+    <form id="AcceptBtn" method="post" action="{% url 'accept_request' request_id %}">
+        {% csrf_token %}
+        <button type="submit" name="accept_request" class="accept-btn">Accept Request</button>
+    </form>
+        <script>
+            document.getElementById('AcceptBtn').onsubmit = function(event) {
+                event.preventDefault();
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", this.action, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        // Reload the page after a successful request
+                        location.reload();
+                    } else {
+                        console.error('Request failed.');
+                    }
+                };
+
+                xhr.onerror = function() {
+                    console.error('Request failed.');
+                };
+
+                var formData = new FormData(document.getElementById('AcceptBtn'));
+                var formDataEncoded = new URLSearchParams(formData).toString();
+                xhr.send(formDataEncoded);
+            };
+        </script>
+        {% elif project_request.status == 'In Progress' %}
             <button id="createMilestoneBtn" class="btn btn-primary">Create/Add Milestone</button>
-            
-            {% endif %}
+        {% endif %}
+
         </div>
         
         <h2>Milestones</h2>
@@ -234,24 +260,30 @@
     
     
 
-{% if project_request.status == 'In Progress' %}
+    {% if project_request.status == 'In Progress' %}
     <div class="milestone-card">
         <div>
-            <h3>Complete Project</h3>
-            <p>All milestones must be completed to mark the project as complete.</p>
-            <div class="actions">
-                {% if all_milestones_complete %}
-                    <form method="post" action="{% url 'complete_project' project_request.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success">Complete Project</button>
-                    </form>
-                {% else %}
-                    <button class="btn btn-secondary" disabled>Complete Project</button>
-                {% endif %}
-            </div>
+            {% if milestones %}
+                <h3>Complete Project</h3>
+                <p>All milestones must be completed to mark the project as complete.</p>
+                <div class="actions">
+                    {% if all_milestones_complete %}
+                        <form method="post" action="{% url 'complete_project' project_request.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Complete Project</button>
+                        </form>
+                    {% else %}
+                        <button class="btn btn-secondary" disabled>Complete Project</button>
+                    {% endif %}
+                </div>
+            {% else %}
+                <h3>No Milestones</h3>
+                <p>Please create milestones to start tracking the project progress.</p>
+            {% endif %}
         </div>
     </div>
 {% endif %}
+
 
 
     </div>
