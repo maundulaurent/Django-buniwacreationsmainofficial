@@ -17,4 +17,5 @@ urlpatterns = [
     path('edit_milestone/<int:milestone_id>/', views.edit_milestone, name='edit_milestone'),
     path('toggle_milestone_status/<int:milestone_id>/', views.toggle_milestone_status, name='toggle_milestone_status'),
     path('change_to_progress/<int:project_id>/', views.change_to_progress, name='change_to_progress'),
+    path('project/<int:project_id>/', views.project_details, name='project_details'),
     ]

@@ -54,6 +54,18 @@ def client_portal(request):
     })
 
 
+@login_required
+def project_details(request, project_id):
+    project = get_object_or_404(ProjectRequest, id=project_id, user=request.user)
+    milestones = Milestone.objects.filter(project=project)
+
+    return render(request, 'Portal/project_details.html', {
+        'project': project,
+        'milestones': milestones,
+    })
+
+
+
 def is_admin(user):
     return user.is_superuser  # Ensure only admins can access this view
 

@@ -85,6 +85,7 @@
             <div id="pending-projects">
                 {% for project in pending_projects %}
                     <div class="project-card">
+                        <h3><a href="{% url 'project_details' project.id %}">{{ project.project_name }}</a></h3>
                         <h3>{{ project.project_name }}</h3>
                         <p>{{ project.description }}</p>
                         <p>Status: Awaiting Approval</p>
@@ -100,6 +101,7 @@
             <div id="active-projects">
                 {% for project in active_projects %}
                     <div class="project-card">
+                        <h3><a href="{% url 'project_details' project.id %}">{{ project.project_name }}</a></h3>
                         <h3>{{ project.project_name }}</h3>
                         <p>{{ project.description }}</p>
                         <p>Status: In Progress</p>

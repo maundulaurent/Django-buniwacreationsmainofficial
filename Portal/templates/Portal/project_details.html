@@ -1,0 +1,58 @@
+<!-- Portal/templates/Portal/project_details.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project.project_name }} Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        .project-card, .milestone-card {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .milestone-card img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Project Details: {{ project.project_name }}</h2>
+    <div class="project-card">
+        <p>{{ project.description }}</p>
+        <p>Status: {{ project.status }}</p>
+    </div>
+
+    <h2>Milestones</h2>
+    {% for milestone in milestones %}
+        <div class="milestone-card">
+            <h3>{{ milestone.title }}</h3>
+            <p>{{ milestone.description }}</p>
+            <p>Due Date: {{ milestone.due_date }}</p>
+            <p>Completed: {{ milestone.completed }}</p>
+            {% if milestone.image_url %}
+                <img src="{{ milestone.image_url }}" alt="{{ milestone.title }} Image">
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No milestones available for this project.</p>
+    {% endfor %}
+</body>
+</html>
