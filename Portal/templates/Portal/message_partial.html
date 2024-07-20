@@ -1,0 +1,8 @@
+{% for message in messages %}
+<div class="message {% if message.user == user %}client{% else %}admin{% endif %}">
+  <div class="message-content">
+    <p>{{ message.content }}</p>
+    <small>{{ message.timestamp }}</small>
+  </div>
+</div>
+{% endfor %}

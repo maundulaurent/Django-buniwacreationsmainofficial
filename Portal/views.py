@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
 
 @login_required
 @require_POST
@@ -21,29 +24,24 @@ from django.http import JsonResponse
 
 @login_required
 def client_portal(request):
-    if request.method == 'POST':
-        form = ProjectRequestForm(request.POST)
+    if request.method == 'POST' and 'content' in request.POST:
+        form = MessageForm(request.POST)
         if form.is_valid():
-            project_request = form.save(commit=False)
-            project_request.user = request.user
-            project_request.status = 'Requested'  # Set default status to 'Requested'
-            project_request.save()
-            return redirect('client_portal')  # Redirect to the same page after submitting the form
+            message = form.save(commit=False)
+            message.user = request.user
+            message.save()
+            if request.is_ajax():
+                message_html = render_to_string('Portal/message_partial.html', {'message': message, 'user': request.user})
+                return JsonResponse({'message_html': message_html})
+            return redirect('client_portal')
     else:
         form = ProjectRequestForm()
 
-    pending_projects = ProjectRequest.objects.filter(user=request.user, status='Requested')  # Get projects with status 'Requested'
-    active_projects = ProjectRequest.objects.filter(user=request.user, status='In Progress')  # Get projects with status 'In Progress'
-    completed_projects = ProjectRequest.objects.filter(user=request.user, status='Completed')  # Get projects with status 'Completed'
+    pending_projects = ProjectRequest.objects.filter(user=request.user, status='Requested')
+    active_projects = ProjectRequest.objects.filter(user=request.user, status='In Progress')
+    completed_projects = ProjectRequest.objects.filter(user=request.user, status='Completed')
 
-    message_form = MessageForm(request.POST or None)
-    if request.method == 'POST' and 'content' in request.POST:
-        if message_form.is_valid():
-            message = message_form.save(commit=False)
-            message.user = request.user
-            message.save()
-            return redirect('client_portal')
-     # Fetch all messages related to the current user
+    message_form = MessageForm()
     messages = Message.objects.filter(user=request.user).order_by('timestamp')
 
     return render(request, 'Portal/client_portal.html', {
@@ -55,6 +53,11 @@ def client_portal(request):
         'completed_projects': completed_projects,
         'user': request.user
     })
+
+@login_required
+def fetch_chats(request):
+    messages = Message.objects.filter(user=request.user).order_by('timestamp')
+    return render_to_string('Portal/message_partial.html', {'messages': messages, 'user': request.user})
 
 
 @login_required
@@ -107,11 +110,6 @@ def login_view(request):
     return render(request, 'Portal/login.html')
 
 
-
-
-# Portal/views.py
-
-from .forms import MilestoneForm
 
 
 @login_required
