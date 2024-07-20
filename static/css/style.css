@@ -1959,12 +1959,12 @@ section {
 /* Portal  */
 
 .features .features-item {
-  background-color: var(--surface-color);
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   padding: 20px;
   transition: 0.3s;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border: 1px solid color-mix(in srgb, #444444, transparent 90%);
   position: relative;
 }
 
@@ -1983,16 +1983,119 @@ section {
 }
 
 .features .features-item h3 a {
-  color: var(--heading-color);
+  color: #37423b;
   transition: 0.3s;
 }
 
 .features .features-item:hover {
-  border-color: var(--accent-color);
+  border-color: #5fcf80;
 }
 
 .features .features-item:hover h3 a {
-  color: var(--accent-color);
+  color: #5fcf80;
 }
 
+/* Chat feature in client_portal */
+
+  .chat-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .chat-header {
+    background: #f9f9f9;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .chat-header h5 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .message {
+    display: flex;
+    max-width: 75%;
+  }
+
+  .message.client {
+    align-self: flex-end;
+    background-color: #e6f7ff;
+    border-radius: 15px 15px 0 15px;
+    margin-left: auto;
+  }
+
+  .message.admin {
+    align-self: flex-start;
+    background-color: #f4f4f4;
+    border-radius: 15px 15px 15px 0;
+    margin-right: auto;
+  }
+
+  .message-content {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .message-content p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .message-content small {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+  }
+
+  .chat-footer {
+    background: #f9f9f9;
+    padding: 10px;
+    border-top: 1px solid #eee;
+  }
+
+  .chat-footer form {
+    display: flex;
+    gap: 10px;
+  }
+
+  .chat-footer textarea {
+    flex: 1;
+    resize: none;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .send-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .send-button:hover {
+    background-color: #0056b3;
+  }
+
+/* End chat feature in portal */
 /* End Portal  */
