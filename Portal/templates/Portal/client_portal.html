@@ -1,78 +1,251 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Portal</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
 
-        h2 {
-            color: #333;
-        }
+{% extends 'Buniwa/base.html' %}
 
-        #login-prompt, #projects {
-            margin-bottom: 20px;
-        }
+{% load static %}
 
-        button {
-            padding: 10px 20px;
-            margin: 10px 0;
-            cursor: pointer;
-        }
+{% block title %}Customer Portal | Buniwa Creations {% endblock %}
 
-        .welcome-message {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
+{% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
 
-        .project-card {
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 10px;
-        }
 
-        .project-card h3 {
-            margin: 0;
-        }
+{% block content %}
 
-        .project-card p {
-            margin: 5px 0 0;
-        }
 
-        .chat-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #0084ff;
-            color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            font-size: 24px;
-            text-decoration: none;
-        }
-
-        .project-section {
-            margin-bottom: 30px;
-        }
-
-        .project-section h2 {
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
 <body>
+
+     <!-- portal hero -->
+     <div class="page-header d-flex align-items-center" style="background-image: url('{% static "images/portalhero.jpg" %}'); background-size: cover;">
+    <div class="container page-hero position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center py-6">
+          <h2 class="display-4 fw-bold text-light py-2">Customer Portal</h2>
+          <p class="fs-5 fw-bold">
+            <a href="{% url 'index' %}">Home</a> <i class="bi bi-caret-right"></i> Customer Portal
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- end portal hero -->
+
+{% comment %} start main body {% endcomment %}
+
+<div class="row g-5 py-4">
+
+    
+    <div class="col-md-3" >
+        <div class="position-sticky" style="top: 6rem;">
+          <div class="p-4 mb-3 bg-body-tertiary rounded">
+            <h4 class="fst-bold">BuniwaCreations Portal</h4>
+            <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+          </div>
+  
+          <div  style="background-color: #f4f4f4;">
+            <h4 class="fst-italic mx-2">Recent posts</h4>
+            <ul class="list-unstyled mx-2">
+              <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                  <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                  <div class="col-lg-8">
+                    <h6 class="mb-0">Example blog post title</h6>
+                    <small class="text-body-secondary">January 15, 2024</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                  <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                  <div class="col-lg-8">
+                    <h6 class="mb-0">This is another blog post title</h6>
+                    <small class="text-body-secondary">January 14, 2024</small>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                  <svg class="bd-placeholder-img" width="100%" height="96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+                  <div class="col-lg-8">
+                    <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
+                    <small class="text-body-secondary">January 13, 2024</small>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+  
+  
+          
+        </div>
+    </div>
+
+    <div class="col-md-9">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        Welcome to client Portal
+      </h3>
+    
+    <div class="row g-5 py-4">
+      <div class="col-md-9">
+        <section id="features" class="features section">
+          <div class="container">
+            <div class="row gy-4">
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="features-item">
+                  <i class="bi bi-eye" style="color: #ffbb2c;"></i>
+                  <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="features-item">
+                  <i class="bi bi-infinity" style="color: #5578ff;"></i>
+                  <h3><a href="" class="stretched-link">Dolor Sitema</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="features-item">
+                  <i class="bi bi-mortarboard" style="color: #e80368;"></i>
+                  <h3><a href="" class="stretched-link">Sed perspiciatis</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="features-item">
+                  <i class="bi bi-nut" style="color: #e361ff;"></i>
+                  <h3><a href="" class="stretched-link">Magni Dolores</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="features-item">
+                  <i class="bi bi-shuffle" style="color: #47aeff;"></i>
+                  <h3><a href="" class="stretched-link">Nemo Enim</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="features-item">
+                  <i class="bi bi-star" style="color: #ffa76e;"></i>
+                  <h3><a href="" class="stretched-link">Eiusmod Tempor</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="700">
+                <div class="features-item">
+                  <i class="bi bi-x-diamond" style="color: #11dbcf;"></i>
+                  <h3><a href="" class="stretched-link">Midela Teren</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="800">
+                <div class="features-item">
+                  <i class="bi bi-camera-video" style="color: #4233ff;"></i>
+                  <h3><a href="" class="stretched-link">Pira Neve</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="900">
+                <div class="features-item">
+                  <i class="bi bi-command" style="color: #b2904f;"></i>
+                  <h3><a href="" class="stretched-link">Dirada Pack</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1000">
+                <div class="features-item">
+                  <i class="bi bi-dribbble" style="color: #b20969;"></i>
+                  <h3><a href="" class="stretched-link">Moton Ideal</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1100">
+                <div class="features-item">
+                  <i class="bi bi-activity" style="color: #ff5828;"></i>
+                  <h3><a href="" class="stretched-link">Verdo Park</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+              <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="1200">
+                <div class="features-item">
+                  <i class="bi bi-brightness-high" style="color: #29cc61;"></i>
+                  <h3><a href="" class="stretched-link">Flavor Nivelanda</a></h3>
+                </div>
+              </div><!-- End Feature Item -->
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <div class="p-4 mb-3 bg-body-tertiary rounded">
+          <h4 class="fst-bold">BuniwaCreations Portal</h4>
+          <p class="fw-bold">Brand and Website Redesign Project - Project Status</p>
+          <p class="mb-3">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+          <div class="progress " role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar bg-success" style="width: 25%">25%</div>
+          </div>
+        </div>
+
+        <div class="row g-2 py-4">
+          <div class="col-6">
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+              <h4 class="fst-bold">Active Tasks</h4>
+              <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-4 mb-3 bg-body-tertiary rounded">
+              <h4 class="fst-bold">Completed Tasks</h4>
+              <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 mb-3 bg-body-tertiary rounded">
+          <h5>All Pending Tasks</h5>
+          <p class="mb-3">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+
+          <ul>
+            <ul>
+              <li>Gadgets</li>
+              <li>Accessories</li>
+              <li>Accessories</li>
+          </ul>
+        </ul>
+        </div>
+
+      </div>
+      {% comment %} Column with chat {% endcomment %}
+      <div class="col-md-3">
+        
+        <article class="blog-post">
+          <h2 class="display-5 link-body-emphasis mb-1">New feature</h2>
+          <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
+  
+          <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
+          <ul>
+            <li>First list item</li>
+            <li>Second list item with a longer description</li>
+            <li>Third list item to close it out</li>
+          </ul>
+          <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+          <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+          <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+          <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+          <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+          <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
+        </article>
+      </div>
+    </div>
+
+    </div>
+
+  </div>
+
+
+
     <h2>Client Portal</h2>
     {% if user.is_authenticated %}
         <div class="welcome-message">
@@ -134,12 +307,91 @@
             <button type="submit">Request Project</button>
         </form>
 
-        <h2>Send a Message</h2>
-        <form method="post" action="{% url 'client_portal' %}">
-            {% csrf_token %}
-            {{ message_form.as_p }}
-            <button type="submit">Send Message</button>
-        </form>
+        <!-- Snippet for chat section in client portal -->
+
+<!-- Snippet for chat section in client portal -->
+
+<h2>Send a Message</h2>
+<div class="chat-card">
+    <div class="messages">
+        {% for message in messages %}
+            <div class="message {% if message.user == user %}client-message{% else %}admin-message{% endif %}">
+                <div class="message-content">
+                    <p>{{ message.content }}</p>
+                    <small>{{ message.timestamp }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <form method="post" action="{% url 'client_portal' %}">
+        {% csrf_token %}
+        {{ message_form.as_p }}
+        <button type="submit">Send Message</button>
+    </form>
+</div>
+
+<style>
+    .chat-card {
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .messages {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .message {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .client-message {
+        align-self: flex-end;
+        background-color: #e6f7ff;
+    }
+
+    .admin-message {
+        align-self: flex-start;
+        background-color: #f4f4f4;
+    }
+
+    .message-content {
+        margin: 0;
+    }
+
+    .message-content p {
+        margin: 0;
+    }
+
+    .message-content small {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.8em;
+        color: #888;
+    }
+
+    .reply-form textarea {
+        width: 100%;
+        height: 80px;
+        margin-top: 10px;
+    }
+
+    .reply-form button {
+        margin-top: 5px;
+    }
+</style>
+
+
 
     {% else %}
         <div id="login-prompt">
@@ -149,3 +401,5 @@
     {% endif %}
 </body>
 </html>
+
+{% endblock %}

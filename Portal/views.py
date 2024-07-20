@@ -43,10 +43,13 @@ def client_portal(request):
             message.user = request.user
             message.save()
             return redirect('client_portal')
+     # Fetch all messages related to the current user
+    messages = Message.objects.filter(user=request.user).order_by('timestamp')
 
     return render(request, 'Portal/client_portal.html', {
         'form': form,
         'message_form': message_form,
+        'messages': messages,
         'pending_projects': pending_projects,
         'active_projects': active_projects,
         'completed_projects': completed_projects,

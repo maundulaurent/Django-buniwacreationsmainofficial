@@ -1,5 +1,31 @@
 <!-- Portal/templates/Portal/project_details.html -->
 
+{% extends 'Buniwa/base.html' %}
+
+{% load static %}
+
+{% block title %}Customer Portal | Buniwa Creations {% endblock %}
+
+{% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
+
+
+
+{% block content %}
+
+ <!-- service hero -->
+ <div class="page-header d-flex align-items-center" style="background-image: url('static/images/herobg6.jpg'); background-size: cover;">
+    <div class="container page-hero position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center py-6">
+          <h2 class="display-4 fw-bold text-light py-2">Our Services</h2>
+          <p class="fs-5 fw-bold">
+            <a href="{% url 'index' %}">Home</a> <i class="bi bi-caret-right"></i> Services
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- end service hero -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +60,7 @@
     </style>
 </head>
 <body>
+    <a href="{% url 'client_portal' %}" class="btn btn-success btn-sm">Back To Portal</a>
     <h2>Project Details: {{ project.project_name }}</h2>
     <div class="project-card">
         <p>{{ project.description }}</p>
@@ -56,3 +83,4 @@
     {% endfor %}
 </body>
 </html>
+{% endblock %}

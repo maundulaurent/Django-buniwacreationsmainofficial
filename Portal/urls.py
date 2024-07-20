@@ -2,6 +2,8 @@
 
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -18,4 +20,4 @@ urlpatterns = [
     path('toggle_milestone_status/<int:milestone_id>/', views.toggle_milestone_status, name='toggle_milestone_status'),
     path('change_to_progress/<int:project_id>/', views.change_to_progress, name='change_to_progress'),
     path('project/<int:project_id>/', views.project_details, name='project_details'),
-    ]
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
