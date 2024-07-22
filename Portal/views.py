@@ -95,6 +95,13 @@ def admin_portal(request):
         'messages_by_user': messages_by_user,
     })
 
+@login_required
+@user_passes_test(is_admin)
+def get_messages(request, username):
+    user = User.objects.get(username=username)
+    messages = Message.objects.filter(user=user).order_by('timestamp')
+    messages_data = [{'username': msg.user.username, 'content': msg.content, 'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S')} for msg in messages]
+    return JsonResponse({'messages': messages_data})
 
 def login_view(request):
     if request.method == 'POST':

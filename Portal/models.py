@@ -18,7 +18,7 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Message from {self.user.username} at {self.timestamp}'
+        return f'Message from {self.user.username} at {self.timestamp} content is: {self.content[:20]}'
     
 class Milestone(models.Model):
     project = models.ForeignKey(ProjectRequest, on_delete=models.CASCADE)
