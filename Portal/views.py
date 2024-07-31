@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .models import *
+from Buniwa.models import UserDetails
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
@@ -42,6 +43,9 @@ def client_portal(request):
     active_tasks = Milestone.objects.filter(project__in=active_projects, completed=False)
     completed_tasks = Milestone.objects.filter(project__in=completed_projects, completed=True)
 
+        # Fetch user details
+    user_details = UserDetails.objects.get(user=request.user)
+
     return render(request, 'Portal/client_portal.html', {
         'form': form,
         'pending_projects': pending_projects,
@@ -49,6 +53,7 @@ def client_portal(request):
         'completed_projects': completed_projects,
         'active_tasks': active_tasks,
         'completed_tasks': completed_tasks,
+        'user_details': user_details,
     })
 
 
