@@ -24,15 +24,13 @@ from django.http import JsonResponse
 
 @login_required
 def client_portal(request):
-    if request.method == 'POST' and 'content' in request.POST:
-        form = MessageForm(request.POST)
+    if request.method == 'POST':
+        form = ProjectRequestForm(request.POST)
         if form.is_valid():
-            message = form.save(commit=False)
-            message.user = request.user
-            message.save()
-            if request.is_ajax():
-                message_html = render_to_string('Portal/message_partial.html', {'message': message, 'user': request.user})
-                return JsonResponse({'message_html': message_html})
+            project_request = form.save(commit=False)
+            project_request.user = request.user
+            project_request.status = 'Requested'
+            project_request.save()
             return redirect('client_portal')
     else:
         form = ProjectRequestForm()
@@ -41,23 +39,17 @@ def client_portal(request):
     active_projects = ProjectRequest.objects.filter(user=request.user, status='In Progress')
     completed_projects = ProjectRequest.objects.filter(user=request.user, status='Completed')
 
-    message_form = MessageForm()
-    messages = Message.objects.filter(user=request.user).order_by('timestamp')
+    active_tasks = Milestone.objects.filter(project__in=active_projects, completed=False)
+    completed_tasks = Milestone.objects.filter(project__in=completed_projects, completed=True)
 
     return render(request, 'Portal/client_portal.html', {
         'form': form,
-        'message_form': message_form,
-        'messages': messages,
         'pending_projects': pending_projects,
         'active_projects': active_projects,
         'completed_projects': completed_projects,
-        'user': request.user
+        'active_tasks': active_tasks,
+        'completed_tasks': completed_tasks,
     })
-
-@login_required
-def fetch_chats(request):
-    messages = Message.objects.filter(user=request.user).order_by('timestamp')
-    return render_to_string('Portal/message_partial.html', {'messages': messages, 'user': request.user})
 
 
 @login_required
@@ -81,27 +73,10 @@ def is_admin(user):
 @user_passes_test(is_admin)
 def admin_portal(request):
     project_requests = ProjectRequest.objects.all()
-    messages = Message.objects.all().order_by('-timestamp')
-
-    # Group messages by user
-    messages_by_user = {}
-    for message in messages:
-        if message.user not in messages_by_user:
-            messages_by_user[message.user] = []
-        messages_by_user[message.user].append(message)
 
     return render(request, 'Portal/admin_portal.html', {
         'project_requests': project_requests,
-        'messages_by_user': messages_by_user,
     })
-
-@login_required
-@user_passes_test(is_admin)
-def get_messages(request, username):
-    user = User.objects.get(username=username)
-    messages = Message.objects.filter(user=user).order_by('timestamp')
-    messages_data = [{'username': msg.user.username, 'content': msg.content, 'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S')} for msg in messages]
-    return JsonResponse({'messages': messages_data})
 
 def login_view(request):
     if request.method == 'POST':
@@ -116,6 +91,13 @@ def login_view(request):
             return render(request, 'Portal/login.html', {'error': 'Invalid username or password.'})
     return render(request, 'Portal/login.html')
 
+
+@user_passes_test(is_admin)
+def accept_request(request, request_id):
+    project_request = get_object_or_404(ProjectRequest, id=request_id)
+    project_request.status = 'In Progress'
+    project_request.save()
+    return redirect('admin_portal')
 
 
 
@@ -157,13 +139,6 @@ def create_milestones(request, request_id):
         'all_milestones_complete': all_milestones_complete,
     })
 
-
-@user_passes_test(is_admin)
-def accept_request(request, request_id):
-    project_request = get_object_or_404(ProjectRequest, id=request_id)
-    project_request.status = 'In Progress'
-    project_request.save()
-    return redirect('admin_portal')
 
 
 @login_required
@@ -207,16 +182,6 @@ def complete_project(request, request_id):
     project_request.save()
     return redirect('admin_portal')  # Or another page where the admin can view the project details
 
-
-
-@login_required
-def reply_message(request, user_id):
-    if request.method == 'POST':
-        user = get_object_or_404(User, id=user_id)
-        content = request.POST.get('reply_content')
-        if content:
-            Message.objects.create(user=user, content=content)
-    return redirect('admin_portal')
 
 def change_to_progress(request, project_id):
     project = get_object_or_404(ProjectRequest, id=project_id)

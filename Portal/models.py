@@ -12,14 +12,6 @@ class ProjectRequest(models.Model):
     def __str__(self):
         return self.project_name
     
-class Message(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Message from {self.user.username} at {self.timestamp} content is: {self.content[:20]}'
-    
 class Milestone(models.Model):
     project = models.ForeignKey(ProjectRequest, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)

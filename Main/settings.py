@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'Buniwa',
     'Portal',
     'channels',
+    'widget_tweaks',
 ]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 1800  # 30 minutes
