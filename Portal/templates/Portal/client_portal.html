@@ -172,7 +172,7 @@
                           <th>Project Name</th>
                           <th>Status</th>
                           <th>Assigned To</th>
-                          <th>Due Date</th>
+                          <th>Action</th>
                           <th></th> <!-- Empty header for action icons -->
                       </tr>
                   </thead>
@@ -182,12 +182,10 @@
                               <td>{{ task.project_name }}</td>
                               <td>{{ task.status }}</td>
                               <td>{{ task.assigned_to }}</td>
-                              <td>{{ task.due_date }}</td>
+                              {% comment %} <td>{{ task.due_date }}</td> {% endcomment %}
                               <td class="text-center">
                                   <!-- Placeholder icons for actions -->
-                                  <a href="#" class="btn btn-sm btn-outline-primary me-2">
-                                      <i class="bi bi-pencil"></i>
-                                  </a>
+                                 
                                   <a href="{% url 'client_project_details' task.id %}" class="btn btn-sm btn-outline-secondary">
                                       <i class="bi bi-three-dots-vertical"></i>
                                   </a>
