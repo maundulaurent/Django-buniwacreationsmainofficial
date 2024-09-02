@@ -19,4 +19,5 @@ urlpatterns = [
     path('toggle_milestone_status/<int:milestone_id>/', views.toggle_milestone_status, name='toggle_milestone_status'),
     path('change_to_progress/<int:project_id>/', views.change_to_progress, name='change_to_progress'),
     path('project/<int:project_id>/', views.project_details, name='project_details'),
+    path('project/<int:request_id>/', views.client_project_details, name='client_project_details'),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

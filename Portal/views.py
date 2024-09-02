@@ -215,3 +215,13 @@ def change_to_progress(request, project_id):
         })
     
     return redirect('project_details', project_id=project.id) 
+
+@login_required
+def client_project_details(request, request_id):
+    project_request = get_object_or_404(ProjectRequest, id=request_id)
+    milestones = Milestone.objects.filter(project=project_request)
+
+    return render(request, 'Portal/client_project_details.html', {
+        'project_request': project_request,
+        'milestones': milestones,
+    })

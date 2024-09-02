@@ -1,0 +1,49 @@
+{% extends 'Buniwa/base.html' %}
+
+{% load static %}
+
+{% block title %}Project Details | Buniwa Creations{% endblock %}
+
+{% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2>{{ project_request.project_name }}</h2>
+    <p><strong>Status:</strong> {{ project_request.status }}</p>
+    <p>{{ project_request.description }}</p>
+
+    <h4 class="mt-4">Milestones</h4>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Completed</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for milestone in milestones %}
+                <tr>
+                    <td>{{ milestone.title }}</td>
+                    <td>{{ milestone.description }}</td>
+                    <td>{{ milestone.due_date }}</td>
+                    <td>{{ milestone.completed|yesno:"Yes,No" }}</td>
+                    <td>
+                        {% if milestone.image %}
+                            <img src="{{ milestone.image_url }}" alt="{{ milestone.title }}" width="100">
+                        {% else %}
+                            No Image
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No milestones found for this project.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
