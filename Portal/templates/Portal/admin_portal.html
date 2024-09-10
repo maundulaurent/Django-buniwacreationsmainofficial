@@ -4,166 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             color: #333;
-            margin: 0;
+        }
+        .container {
             padding: 20px;
-            gap: 20px;
         }
-
-        h2 {
-            color: #333;
-            grid-column: span 4;
-        }
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
         .project-card {
-            background: white;
-            border-radius: 5px;
+            background-color: white;
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
+            padding: 15px;
             margin-bottom: 10px;
         }
-
-        .project-card h3 {
-            margin: 0;
-        }
-
-        .project-card p {
-            margin: 5px 0 0;
-        }
-
-        .buttons {
-            margin-top: 10px;
-        }
-
-        .buttons button {
-            padding: 5px 10px;
-            margin-right: 5px;
-            cursor: pointer;
+        .btn-primary {
+            background-color: #007bff;
             border: none;
-            border-radius: 3px;
         }
-
-        .accept-btn {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .milestones-btn {
-            background-color: #2196F3;
-            color: white;
-        }
-
-        .complete-btn {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .message-section {
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 20px;
-            grid-column: span 1;
-        }
-
-        .message-header {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-        }
-
-        .message-card {
-            margin-bottom: 10px;
-        }
-
-        .message-content {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        .tab {
-            display: none;
-        }
-
-        .tab.active {
-            display: block;
-        }
-
-        .tab-buttons {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tab-buttons button {
-            margin-bottom: 5px;
-        }
-
-        .reply-form {
-            margin-top: 10px;
-        }
-
-        .reply-form textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .reply-form button {
-            margin-top: 5px;
+        .btn-primary:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <h2>Admin Portal</h2>
-    <h3>Project Requests</h3>
-
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Project Title</th>
-            <th scope="col">Name of client</th>
-            <th scope="col"> Project Status</th>
-            <th scope="col"> Description</th>
-            <th scope="col"> Actions..</th>
-          </tr>
-        </thead>
-        <tbody class="table-group-divider">
-        {% if project_requests %}
+    <div class="container">
+        <h2>Admin Portal</h2>
+        <h3>Project Requests</h3>
+        <div class="row">
             {% for request in project_requests %}
-          <tr>
-            <th scope="row">1</th>
-            <td>{{ request.project_name }}</td>
-            <td>{{ request.user.username }}</td>
-            <td>{{ request.status }}</td>
-            <td>{{ request.description }}</td>            
-            <td><a href="{% url 'create_milestones' request.id %}" class="btn btn-primary btn-sm">Details Page</a></td>
-          </tr>
-          {% endfor %}
-        {% else %}
-            <p>No project requests at the moment.</p>
-        {% endif %}
-         
-        </tbody>
-    </table>
+            <div class="col-md-4">
+                <div class="project-card">
+                    <h4>{{ request.project_name }}</h4>
+                    <p><strong>Client:</strong> {{ request.user.username }}</p>
+                    <p><strong>Status:</strong> {{ request.status }}</p>
+                    <p>{{ request.description }}</p>
+                    <a href="{% url 'create_milestones' request.id %}" class="btn btn-primary btn-sm">Details Page</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p>No project requests at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-
-<!-- Admin Chat Modal -->
-
-  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

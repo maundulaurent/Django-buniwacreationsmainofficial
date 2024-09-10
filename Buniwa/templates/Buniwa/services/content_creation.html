@@ -1,0 +1,379 @@
+{% extends 'Buniwa/base.html' %}
+
+{% load static %}
+
+{% block title %}Content Creation | Buniwa Creations {% endblock %}
+
+{% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
+
+{% block content %}
+
+
+ <!-- Service Start -->
+
+ <!-- service hero -->
+ <div class="page-header d-flex align-items-center" style="background-image: url('static/images/herobg6.jpg'); background-size: cover;">
+  <div class="container page-hero position-relative">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-6 text-center py-6">
+        <h2 class="display-4 fw-bold text-light py-2"> Content Creation </h2>
+        <p class="fs-5 fw-bold">
+          <a href="{% url 'index' %}">Home</a> <i class="bi bi-caret-right"></i>Content Creation
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- end service hero -->
+
+<body>
+
+  <main id="main" style="margin-top: 70px;">
+
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 post-content" data-aos="fade-up">
+
+            <!-- ======= Single Post Content ======= -->
+            <div class="single-post">
+              <h1 class="mb-5">Content Creation</h1>
+              <p><span class="firstcharacter">C</span>ontent Creation is the process of generating valuable, engaging, and relevant content to attract and retain a clearly defined audience. It is a crucial aspect of digital marketing that involves crafting various types of content, such as blog posts, videos, infographics, and social media posts, to convey your brand's message and connect with your target audience. For small businesses in Kenya, effective content creation can help establish authority, build trust, and drive conversions. At Buniwa Creations, we specialize in creating high-quality content tailored to your business needs and audience preferences.</p>
+
+              
+            </div><!-- End Single Post Content -->
+
+         
+          </div>
+          <div class="col-md-3">
+
+          </div>
+
+
+        </div>
+
+
+           
+        <section id="features" class="features section">
+          <h5>Why Your Business Needs Professional Content Creation</h5>
+            <div class="container">
+                <div class="row justify-content-between">
+
+                <div class="col-lg-5 d-flex align-items-center">
+
+                    <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                        <i class="bi bi-hourglass-top"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Enhanced Brand Authority</h4>
+                            <p>
+                              High-quality content positions your business as an authority in your industry, building trust and credibility with your audience.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                        <i class="bi bi-person-hearts"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Increased Engagement</h4>
+                            <p>
+                              Engaging content captures the attention of your audience, encouraging them to interact with your brand and share your content with others.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                        <i class="bi bi-gear-fill"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Improved SEO</h4>
+                            <p>
+                              SEO-optimized content improves your website's search engine rankings, driving more organic traffic and increasing visibility.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                        <i class="bi bi-person-down"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Lead Generation</h4>
+                            <p>
+                              Valuable content attracts and nurtures leads by addressing their pain points and providing solutions, moving them closer to making a purchase.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                        <i class="bi bi-bag-check-fill"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Customer Retention</h4>
+                            <p>
+                              Consistently delivering valuable content keeps your audience engaged and loyal, leading to higher customer retention rates.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    </ul><!-- End Tab Nav -->
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+                    <div class="tab-pane fade heartbeat active show" id="features-tab-1">
+                        <img src="{% static 'images/affordable-content-creation.png' %}" alt="content creation agency in kenya" class="img-fluid">
+                    </div><!-- End Tab Content Item -->
+
+                    <div class="tab-pane fade" id="features-tab-2">
+                        <img src="{% static 'images/services-1.jpg' %}" alt="" class="img-fluid">
+                    </div><!-- End Tab Content Item -->
+
+                    <div class="tab-pane fade" id="features-tab-3">
+                        <img src="{% static 'images/services-2.jpg' %}" alt="" class="img-fluid">
+                    </div><!-- End Tab Content Item -->
+                    </div>
+
+                </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    <style>
+            section,
+        .section {
+        color: #3d4348;;
+        background-color: #ffffff;
+        padding: 60px 0;
+        scroll-margin-top: 100px;
+        overflow: clip;
+        }
+
+        @media (max-width: 1199px) {
+
+        section,
+        .section {
+            scroll-margin-top: 66px;
+        }
+        }
+
+        .services {
+            --background-color: #ffffff;
+            --accent-color: #388da8;
+            --background-color: color-mix(in srgb, var(--accent-color), transparent 97%);
+          }
+
+    </style>
+
+
+        <section id="services" class="services section">
+        <div class="row ">
+
+            <div class="col-lg-4">
+                <div class="" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-item item-cyan position-relative">
+                        <div>
+                        <h3 class="text-dark mb-4">Our Approach to Content Creation</h3>
+                        <ol>
+                          <li>Initial Consultation and Goal Setting - 
+                            We start with an in-depth consultation to understand your business objectives, target audience, and content goals. Based on this, we set clear, measurable goals for your content creation efforts.</li>
+                            <li>
+                            Audience Research - 
+                            We conduct thorough research to understand your audience's needs, preferences, and behaviors. This helps us create content that resonates with them and addresses their pain points.
+                            
+                            </li>
+                            <li>
+                              
+                            Content Calendar - 
+                            We develop a content calendar that outlines the topics, formats, and publishing schedule. This ensures consistent content delivery and helps in planning and coordination.
+                            
+                            </li>
+                            <li>
+                              
+                            Content Production - 
+                            Our team of writers, designers, and videographers work together to produce high-quality content. We ensure that every piece of content aligns with your brand voice and messaging.
+                            
+                            </li>
+                            <li>
+                              
+                            Content Review and Approval - 
+                            Before publishing, all content goes through a rigorous review process to ensure accuracy, relevance, and quality. We seek your approval to ensure it meets your expectations.
+                            
+                            </li>
+                            <li>
+                              
+                            Distribution and Promotion - 
+                            We distribute your content through various channels and promote it to reach a wider audience. This includes social media marketing, email campaigns, and collaborations with influencers.
+                            </li>
+                        </ol>
+                        <a href="" class="btn btn-success mt-5">Get A Quote<i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-lg-8">
+              <h3>What Our Content Creation Service Entails</h3>
+                <div class="row">
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-item item-cyan position-relative">
+                    <i class="bi bi-activity icon"></i>
+                    <div>
+                    <h3>Content Strategy Development</h3>
+                    We begin by developing a comprehensive content strategy that aligns with your business goals, target audience, and industry. This strategy outlines the types of content to create, topics to cover, and distribution channels to use.</p>
+                    <!-- <a href="" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-item item-orange position-relative">
+                    <i class="bi bi-folder2-open icon"></i>
+                    <div>
+                    <h3>Content Planning and Ideation</h3>
+                    <p>
+                      Our team conducts thorough research to identify trending topics, audience interests, and content gaps. We brainstorm and plan content ideas that resonate with your audience and provide value.</p>
+                    <!-- <a href="" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-item item-teal position-relative">
+                    <i class="bi bi-pencil icon"></i>
+                    <div>
+                    <h3>Writing and Editing</h3>
+                    <p>
+                      We create well-researched, engaging, and SEO-optimized content that speaks to your audience. Our team of skilled writers ensures that every piece of content is clear, compelling, and free of errors.</p>
+                    <!-- <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-item item-red position-relative">
+                    <i class="bi bi-file-earmark-easel icon"></i>
+                    <div>
+                    <h3>Visual Content Creation</h3>
+                    <p>
+                      In addition to written content, we produce visually appealing content such as infographics, videos, and graphics. This helps in capturing attention and conveying information effectively.</p>
+                    <!-- <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+                <div class="service-item item-indigo position-relative">
+                    <i class="bi bi-calendar4-week icon"></i>
+                    <div>
+                    <h3>Content Optimization</h3>
+                    <p>
+                      We optimize your content for search engines to improve visibility and drive organic traffic. This includes keyword integration, meta tags, and optimizing images and videos..</p>
+                    <!-- <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+                <div class="service-item item-pink position-relative">
+                    <i class="bi bi-graph-up icon"></i>
+                    <div>
+                    <h3>Performance Tracking and Analysis</h3>
+                    <p>
+                      We monitor and analyze the performance of your content to measure its effectiveness. This helps us make data-driven decisions and continuously improve your content strategy.</p>
+                    <!-- <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+
+                </div>
+    
+            </div>
+    
+            </div>
+    
+        </section>
+
+
+            <!-- Our Commitment -->
+    <section id="more-features" class="more-features section">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>MEASURING SUCCESS</h2>
+          </div>
+    
+        <div class="container">
+  
+          <div class="row justify-content-around gy-4">
+  
+            <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+              <p>We determine success in content creation by various metrics, including:</p>
+  
+              <div class="row">
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-easel flex-shrink-0"></i>
+                  <div>
+                    <h4>Engagement Metrics</h4>
+                    <p> 
+                      Tracking likes, shares, comments, and other forms of engagement to measure how well your content resonates with your audience. </p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-patch-check flex-shrink-0"></i>
+                  <div>
+                    <h4>Website Traffic</h4>
+                    <p>
+                      Monitoring the increase in website traffic driven by your content. Higher traffic indicates effective content that attracts visitors.</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-brightness-high flex-shrink-0"></i>
+                  <div>
+                    <h4>Lead Generation</h4>
+                    <p>
+                      Measuring the number of leads generated through content marketing efforts. Effective content should attract and convert prospects into leads.</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-percent flex-shrink-0"></i>
+                  <div>
+                    <h4>Conversion Rates</h4>
+                    <p>
+                      Tracking the percentage of visitors who take the desired action, such as making a purchase or signing up for a newsletter, after engaging with your content.</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+              </div>
+  
+            </div>
+  
+            <div class="features-image heartbeat col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+              <img src="{% static 'images/content-writing.png' %}" alt="content-writing">
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Commitment -->
+  
+
+
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+
+  {% endblock %}

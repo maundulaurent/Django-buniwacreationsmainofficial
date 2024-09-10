@@ -1,280 +1,174 @@
-
 {% extends 'Buniwa/base.html' %}
 
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %}Customer Portal | Buniwa Creations {% endblock %}
-
+{% block title %}Customer Portal | Buniwa Creations{% endblock %}
 {% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
 
-
 {% block content %}
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    .page-header {
+        background-size: cover;
+        color: white;
+        text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+        padding: 40px 0;
+    }
+    .bg-body-tertiary {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        padding: 20px;
+    }
+    .features-item i {
+        font-size: 24px;
+    }
+    .progress-bar {
+        background-color: #4CAF50;
+    }
+    table {
+        background-color: white;
+    }
+    .btn-outline-secondary {
+        border-color: #ccc;
+    }
+    img {
+        display: block;
+        margin: 0 auto;
+    }
+</style>
 
 <body>
-
-     <!-- portal hero -->
-  <div class="page-header d-flex align-items-center" style="background-image: url('{% static "images/portalhero.jpg" %}'); background-size: cover;">
-    <div class="container page-hero position-relative">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 text-center py-6">
-          <h2 class="display-4 fw-bold text-light py-2">Customer Portal</h2>
-          <p class="fs-5 fw-bold">
-            <a href="{% url 'index' %}">Home</a> <i class="bi bi-caret-right"></i> Customer Portal
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-   <!-- end portal hero -->
-
-
-
-{% comment %} start main body {% endcomment %}
-
-<div class="row g-5 py-4">
-
-    
-    <div class="col-md-3" >
-        <div class="position-sticky" style="top: 6rem;">
-          <div class="p-4 mb-3 bg-body-tertiary rounded">
-            <h4 class="fst-bold">{{ user_details.user.get_full_name }}</h4>
-            {% comment %} <img src="{{ user_details.profile_photo.url }}" alt="Profile Image" class="img-fluid rounded-circle"> {% endcomment %}
-          </div>
-  
-          <div  style="background-color: #f4f4f4;">
-            <h4 class="fst-italic mx-2 text-center mt-2">Quick Links</h4>
-            <ul class="list-unstyled mx-2">
-              <li>
-                <section id="features" class="features">
-                  <div class="row mx-3 py-2">
-                    <div class="features-item">
-                      <i class="bi bi-shuffle" style="color: #47aeff;"></i>
-                      <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                    </div>
-                  </div><!-- End Feature Item -->
-                  <div class="row mx-3 py-2">
-                    <div class="features-item">
-                      <i class="bi bi-x-diamond" style="color: #11dbcf;"></i>
-                      <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                    </div>
-                  </div><!-- End Feature Item -->
-                  <div class="row mx-3 py-2">
-                    <div class="features-item">
-                      <i class="bi bi-activity" style="color: #ff5828;"></i>
-                      <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                    </div>
-                  </div><!-- End Feature Item -->
-                  <div class="row mx-3 py-2">
-                    <div class="features-item">
-                      <i class="bi bi-brightness-high" style="color: #29cc61;"></i>
-                      <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                    </div>
-                  </div><!-- End Feature Item -->
-                  <div class="row mx-3 py-2">
-                    <div class="features-item">
-                      <i class="bi bi-activity" style="color: #ff5828;"></i>
-                      <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                    </div>
-                  </div><!-- End Feature Item -->
-                  <div class="row mx-3 py-2">
-                    <div class="features-item">
-                      <i class="bi bi-command" style="color: #b2904f;"></i>
-                      <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                    </div>
-                  </div><!-- End Feature Item -->             
-
-                </section>
-                      
-              </li>
-            </ul>
-          </div>
-  
-  
-          
+    <!-- portal hero -->
+    <div class="page-header d-flex align-items-center" style="background-image: url('{% static "images/portalhero.jpg" %}');">
+        <div class="container text-center mt-4">
+            <h2 class="display-4 fw-bold py-4">Customer Portal</h2>
+            <p><a href="{% url 'index' %}" class="text-white">Home</a> <i class="bi bi-caret-right"></i> Customer Portal</p>
         </div>
     </div>
 
-    <div class="col-md-9">
-      <h3 class="pb-4 mb-4 border-bottom">
-        Dashboard
-      </h3>
-    
-      <div class="row g-3 py-4">
-        <div class="col-md-9">
+    <div class="container py-5">
+        <div class="row border-bottom g-5">
+            <div class="col-md-3">
+                <div class="bg-body-tertiary mb-4 text-center">
+                    <img src="{{ profile_photo_url }}" alt="" style="width: 150px; height: 150px; border-radius: 75px;">
+                    <h4 class="fw-bold mt-3">{{ user_details.user.get_full_name }}</h4>
+                </div>
+               
+            </div>
 
-          {% comment %} <div class="container mt-4 mb-4">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Search bar -->
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search projects" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+            <div class="col-md-9">
+                <div class="bg-body-tertiary mb-4">
+                    <h3 class="pb-2 border-bottom">Dashboard</h3>
+                    <p><strong>BuniwaCreations Customer Portal</strong></p>
+                    <p>This page contains all the projects ranging from pending to completed tasks. You can also request new projects.</p>
+                    
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row g-5 py-4">
+            
+            <div class="col-md-9">
+                <div class="bg-body-tertiary mb-4">
+                    <h4>Active Tasks</h4>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in active_projects %}
+                            <tr>
+                                <td>{{ task.project_name }}</td>
+                                <td>{{ task.status }}</td>
+                                <td>{{ task.assigned_to }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'client_project_details' task.id %}" class="btn btn-sm btn-outline-secondary" data-bs-toggle="tooltip" title="View Details">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">No active tasks.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="bg-body-tertiary mb-3">
+                            <h4>All Pending Tasks</h4>
+                            <ul>
+                                {% for project in pending_projects %}
+                                <li>{{ project.project_name }} - Status: {{ project.status }}</li>
+                                {% empty %}
+                                <li>No pending projects.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="bg-body-tertiary mb-3">
+                            <h4>Completed Tasks</h4>
+                            <ul>
+                                {% for task in completed_projects %}
+                                <li>{{ task.project_name }} - Completed on {{ task.completion_date }}</li>
+                                {% empty %}
+                                <li>No completed tasks.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="bg-body-tertiary mb-3">
+                    <h2>Request a New Project</h2>
+                    <form method="POST" action="{% url 'client_portal' %}" class="form">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="id_project_name" class="form-label">Project Name</label>
+                            {{ form.project_name|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_description" class="form-label">Description</label>
+                            {{ form.description|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="id_status" class="form-label">Status</label>
+                            {{ form.status|add_class:"form-control" }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Request Project</button>
                     </form>
                 </div>
             </div>
-          </div> {% endcomment %}
-
-          {% comment %} <section id="features" class="features section">
-            <div class="container">
-              <div class="row gy-4">
-
-                <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="100">
-                  <div class="features-item">
-                    <i class="bi bi-eye" style="color: #ffbb2c;"></i>
-                    <h3><a href="" class="stretched-link">Lorem Ipsum</a></h3>
-                  </div>
-                </div><!-- End Feature Item -->
-
-                <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="200">
-                  <div class="features-item">
-                    <i class="bi bi-infinity" style="color: #5578ff;"></i>
-                    <h3><a href="" class="stretched-link">Dolor Sitema</a></h3>
-                  </div>
-                </div><!-- End Feature Item -->
-
-                <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="300">
-                  <div class="features-item">
-                    <i class="bi bi-mortarboard" style="color: #e80368;"></i>
-                    <h3><a href="" class="stretched-link">Sed perspiciatis</a></h3>
-                  </div>
-                </div><!-- End Feature Item -->
-
-                <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="400">
-                  <div class="features-item">
-                    <i class="bi bi-nut" style="color: #e361ff;"></i>
-                    <h3><a href="" class="stretched-link">Magni Dolores</a></h3>
-                  </div>
-                </div><!-- End Feature Item -->
-
-              </div>
-
-            </div>
-
-          </section> {% endcomment %}
-
-          <div class="p-4 mb-3 bg-body-tertiary rounded">
-            <h4 class="fst-bold">BuniwaCreations Customer Portal</h4>
-            <p class="fw-bold">Request and view your projects - Project Status</p>
-            <p class="mb-3">This page contains all the projects ranging from the pending and already completed tasks. You can also request for new projects</p>
-            <div class="progress " role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-              <div class="progress-bar bg-success" style="width: 25%">25%</div>
-            </div>
-          </div>
-
-          <div class="row g-2 py-4">
-            <div class="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 class="fst-bold">Active Tasks</h4>
-              <table class="table table-bordered table-striped">
-                  <thead>
-                      <tr>
-                          <th>Project Name</th>
-                          <th>Status</th>
-                          <th>Assigned To</th>
-                          <th>Action</th>
-                          <th></th> <!-- Empty header for action icons -->
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {% for task in active_projects %}
-                          <tr>
-                              <td>{{ task.project_name }}</td>
-                              <td>{{ task.status }}</td>
-                              <td>{{ task.assigned_to }}</td>
-                              {% comment %} <td>{{ task.due_date }}</td> {% endcomment %}
-                              <td class="text-center">
-                                  <!-- Placeholder icons for actions -->
-                                 
-                                  <a href="{% url 'client_project_details' task.id %}" class="btn btn-sm btn-outline-secondary">
-                                      <i class="bi bi-three-dots-vertical"></i>
-                                  </a>
-                              </td>
-                          </tr>
-                      {% empty %}
-                          <tr>
-                              <td colspan="5" class="text-center">No active tasks.</td>
-                          </tr>
-                      {% endfor %}
-                  </tbody>
-              </table>
-          </div>
-          
-          </div>
-          <div class="row g-2 py-4">
-            <div class="col-6">
-              <div class="p-4 mb-3 bg-body-tertiary rounded">
-                <h5>All Pending Tasks</h5>
-                <h2>Pending Projects</h2>
-                  <ul>
-                      {% for project in pending_projects %}
-                          <li>{{ project.project_name }} - Status: {{ project.status }}</li>
-                      {% empty %}
-                          <li>No pending projects.</li>
-                      {% endfor %}
-                  </ul>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="p-4 mb-3 bg-body-tertiary rounded">
-                <h4 class="fst-bold">Completed Tasks</h4>
-                <ul>
-                  {% for task in completed_projects %}
-                      <li>{{ task.project_name }} - Completed: 8.8.8.8</li>
-                  {% empty %}
-                      <li>No completed tasks.</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-        
-
         </div>
-        {% comment %} Column with request project {% endcomment %}
-      
-      
-        <div class="col-md-3 py-4">
-          <h2 class="mb-4">Request a New Project</h2>
-          <form method="POST" action="{% url 'client_portal' %}" class="border p-4 rounded shadow-sm bg-light">
-              {% csrf_token %}
-              <div class="form-group">
-                  <label for="id_project_name" class="form-label">Project Name</label>
-                  {{ form.project_name|add_class:"form-control" }}
-              </div>
-              <div class="form-group">
-                  <label for="id_description" class="form-label">Description</label>
-                  {{ form.description|add_class:"form-control" }}
-              </div>
-              <div class="form-group">
-                  <label for="id_status" class="form-label">Status</label>
-                  {{ form.status|add_class:"form-control" }}
-              </div>
-              <button type="submit" class="btn btn-primary btn-block mt-3">Request Project</button>
-          </form>
-        </div>
-      
-
-      </div>
-
     </div>
 
-  </div>
-  {% comment %} <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var chatBody = document.querySelector('.chat-body');
-      chatBody.scrollTop = chatBody.scrollHeight;
-    });
-  </script> {% endcomment %}
-  
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </body>
-
 {% endblock %}

@@ -1,22 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-</body>
-</html>
+{% extends 'Buniwa/base.html' %}
+
+{% load static %}
+
+{% block title %}SignIn | Buniwa Creations {% endblock %}
+
+{% block seo_description %}SignIn or Login to our website{% endblock %}
+
+{% block content %}
+<div class="container py-6">
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                    <div class="d-flex justify-content-center py-4">
+                        <a href="{% url 'index' %}" class="r-logo d-flex align-items-center w-auto">
+                            <img src="{% static 'images/The LOGO.png' %}" style="height: 200px; width: 150px;">
+                        </a>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="pt-4 pb-2">
+                                <h5 class="card-title text-center pb-0 fs-4">Sign in to your Account</h5>
+                                <p class="text-center small">Enter your credentials to sign in</p>
+                            </div>
+
+                            <!-- Form Start -->
+                            <form method="post">
+                                {% csrf_token %}
+
+                                <div class="col-12">
+                                    <label for="username" class="form-label">Username</label>
+                                    <div class="input-group has-validation">
+                                        <input type="text" name="username" class="form-control" id="username" required>
+                                        <div class="invalid-feedback">Please enter your username.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" id="password" required>
+                                    <div class="invalid-feedback">Please enter your password!</div>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <button class="w-100 btn" type="submit" style="background-color: #006400; color: #fff;">Login</button>
+                                </div>
+
+                                {% if error %}
+                                    <div class="col-12 mt-3">
+                                        <p class="text-danger">{{ error }}</p>
+                                    </div>
+                                {% endif %}
+                            </form>
+                            <!-- Form End -->
+
+                        </div>
+                    </div>
+
+                    <div class="credits">
+                        Designed by <a href="">BuniwaCreations</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

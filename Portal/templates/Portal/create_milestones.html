@@ -1,18 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Details and Milestones</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% extends 'Buniwa/base.html' %}
+
+{% load static %}
+
+{% block title %}Customer Portal | Buniwa Creations{% endblock %}
+{% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
+
+{% block content %}
+<!-- Linking CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<!-- service hero -->
+<div class="page-header d-flex align-items-center" style="background-image: url('{% static 'images/herobg6.jpg' %}'); background-size: cover; background-position: center;">
+    <div class="container text-center py-6">
+        <h2 class="display-4 fw-bold text-light ">Project Details</h2>
+        <p class="fs-5 text-light">
+            <a href="{% url 'index' %}" class="text-light">Home</a> <i class="bi bi-caret-right"></i> Details
+        </p>
+    </div>
+</div>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             color: #333;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
         }
 
         h2 {
@@ -20,7 +34,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
         }
 
@@ -157,132 +171,137 @@
 </head>
 <body>
     <div class="container">
-        <div>
+        <div class="mt-3">
             
             <p><a href="{% url 'admin_portal' %}" class="btn btn-success"><i class="bi bi-arrow-left"></i>Back to Admin</a></p>
         </div>
-        <div class="project-details">
-            <h3>Project Details</h3>
-            <p><strong>Project Name:</strong> {{ project_request.project_name }}</p>
-            <p><strong>Description:</strong> {{ project_request.description }}</p>
-            <p><strong>Owner:</strong> {{ project_request.user.username }}</p>
-            <p><strong>Request Date:</strong> {{ project_request.created_at }}</p>
-            
-        </div>
-
-        <div class="buttons">
-            {% if project_request.status == 'Requested' %}
-    <form id="AcceptBtn" method="post" action="{% url 'accept_request' request_id %}">
-        {% csrf_token %}
-        <button type="submit" name="accept_request" class="accept-btn">Accept Request</button>
-    </form>
-        <script>
-            document.getElementById('AcceptBtn').onsubmit = function(event) {
-                event.preventDefault();
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", this.action, true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                xhr.onload = function() {
-                    if (xhr.status >= 200 && xhr.status < 400) {
-                        // Reload the page after a successful request
-                        location.reload();
-                    } else {
-                        console.error('Request failed.');
-                    }
-                };
-
-                xhr.onerror = function() {
-                    console.error('Request failed.');
-                };
-
-                var formData = new FormData(document.getElementById('AcceptBtn'));
-                var formDataEncoded = new URLSearchParams(formData).toString();
-                xhr.send(formDataEncoded);
-            };
-        </script>
-        {% elif project_request.status == 'In Progress' %}
-            <button id="createMilestoneBtn" class="btn btn-primary">Create/Add Milestone</button>
-        {% endif %}
-
-        </div>
         
-        <h2>Milestones</h2>
-
-        <div class="milestone-card">
-            <div>
-                {% if project_request.status == 'In Progress' %}
-                <h3>Start</h3>
-                <p>The Start, means the project is accepted</p>
-
-                {% elif project_request.status == 'Completed' %}
-                <h3>Status: Completed</h3>
-                <p>This Project Has been completed</p>
-                <h3><i><u>Projects details:</u></i></h3>
-                <p>Project Completed on: </p>
-                <p>Number Of MileStones:</p>
-                    <br>
-                <p>change project to be On progress  <form method="post" action="{% url 'change_to_progress' project_request.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Change To On Progress</button>
-                </form>
-                    </p>
-                {% endif %}
-            </div>
-        </div>
-        {% for milestone in milestones %}
-        <div class="milestone-card">
-            <div>
-                <h3>{{ milestone.title }}</h3>
-                <p>{{ milestone.description }}</p>
-                <p>Due date: {{ milestone.due_date }}</p>
-                <p>Status: {{ milestone.completed|yesno:"Completed,In Progress" }}</p>
-            </div>
-            <div class="actions">
-                <a href="{% url 'edit_milestone' milestone.id %}" class="edit-milestone" data-id="{{ milestone.id }}">Edit</a>
-                <a href="{% url 'delete_milestone' milestone.id %}">Delete</a>
-                {% if project_request.status != 'Completed' %}
-                    <form method="post" action="{% url 'toggle_milestone_status' milestone.id %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-link">
-                            {% if milestone.completed %}
-                                Mark as In Progress
-                            {% else %}
-                                Mark as Completed
-                            {% endif %}
-                        </button>
-                    </form>
-                {% endif %}
-            </div>
-        </div>
-    {% endfor %}
-    
-    
-
-    {% if project_request.status == 'In Progress' %}
-    <div class="milestone-card">
-        <div>
-            {% if milestones %}
-                <h3>Complete Project</h3>
-                <p>All milestones must be completed to mark the project as complete.</p>
-                <div class="actions">
-                    {% if all_milestones_complete %}
-                        <form method="post" action="{% url 'complete_project' project_request.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success">Complete Project</button>
-                        </form>
-                    {% else %}
-                        <button class="btn btn-secondary" disabled>Complete Project</button>
-                    {% endif %}
+        <div class="row">
+            <div class="col-md-3">
+                <div class="project-details">
+                    <h3>Project Details</h3>
+                    <p><strong>Project Name:</strong> {{ project_request.project_name }}</p>
+                    <p><strong>Description:</strong> {{ project_request.description }}</p>
+                    <p><strong>Owner:</strong> {{ project_request.user.username }}</p>
+                    <p><strong>Request Date:</strong> {{ project_request.created_at }}</p>
                 </div>
-            {% else %}
-                <h3>No Milestones</h3>
-                <p>Please create milestones to start tracking the project progress.</p>
-            {% endif %}
+            </div>
+
+            <div class="col-md-9">
+                <div class="buttons">
+                    {% if project_request.status == 'Requested' %}
+                    <form id="AcceptBtn" method="post" action="{% url 'accept_request' request_id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="accept_request" class="accept-btn">Accept Request</button>
+                    </form>
+                    <script>
+                        document.getElementById('AcceptBtn').onsubmit = function(event) {
+                            event.preventDefault();
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", this.action, true);
+                            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                            xhr.onload = function() {
+                                if (xhr.status >= 200 && xhr.status < 400) {
+                                    // Reload the page after a successful request
+                                    location.reload();
+                                } else {
+                                    console.error('Request failed.');
+                                }
+                            };
+
+                            xhr.onerror = function() {
+                                console.error('Request failed.');
+                            };
+
+                            var formData = new FormData(document.getElementById('AcceptBtn'));
+                            var formDataEncoded = new URLSearchParams(formData).toString();
+                            xhr.send(formDataEncoded);
+                        };
+                    </script>
+                    {% elif project_request.status == 'In Progress' %}
+                        <button id="createMilestoneBtn" class="btn btn-primary">Create/Add Milestone</button>
+                    {% endif %}
+
+                </div>
+                
+                <h2>Milestones</h2>
+
+                <div class="milestone-card">
+                    <div>
+                        {% if project_request.status == 'In Progress' %}
+                        <h3>Start</h3>
+                        <p>The Start, means the project is accepted</p>
+
+                        {% elif project_request.status == 'Completed' %}
+                        <h3>Status: Completed</h3>
+                        <p>This Project Has been completed</p>
+                        <h3><i><u>Projects details:</u></i></h3>
+                        <p>Project Completed on: </p>
+                        <p>Number Of MileStones:</p>
+                            <br>
+                        <p>change project to be On progress  <form method="post" action="{% url 'change_to_progress' project_request.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Change To On Progress</button>
+                        </form>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% for milestone in milestones %}
+                    <div class="milestone-card">
+                        <div>
+                            <h3>{{ milestone.title }}</h3>
+                            <p>{{ milestone.description }}</p>
+                            <p>Due date: {{ milestone.due_date }}</p>
+                            <p>Status: {{ milestone.completed|yesno:"Completed,In Progress" }}</p>
+                        </div>
+                        <div class="actions">
+                            <a href="{% url 'edit_milestone' milestone.id %}" class="edit-milestone" data-id="{{ milestone.id }}">Edit</a>
+                            <a href="{% url 'delete_milestone' milestone.id %}">Delete</a>
+                            {% if project_request.status != 'Completed' %}
+                                <form method="post" action="{% url 'toggle_milestone_status' milestone.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link">
+                                        {% if milestone.completed %}
+                                            Mark as In Progress
+                                        {% else %}
+                                            Mark as Completed
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if project_request.status == 'In Progress' %}
+                    <div class="milestone-card">
+                        <div>
+                            {% if milestones %}
+                                <h3>Complete Project</h3>
+                                <p>All milestones must be completed to mark the project as complete.</p>
+                                <div class="actions">
+                                    {% if all_milestones_complete %}
+                                        <form method="post" action="{% url 'complete_project' project_request.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success">Complete Project</button>
+                                        </form>
+                                    {% else %}
+                                        <button class="btn btn-secondary" disabled>Complete Project</button>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <h3>No Milestones</h3>
+                                <p>Please create milestones to start tracking the project progress.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
         </div>
-    </div>
-{% endif %}
 
     </div>
 
@@ -447,6 +466,7 @@
         }
         
     </script>
+
+    {% endblock %}
 </body>
 </html>
-

@@ -1,0 +1,342 @@
+{% extends 'Buniwa/base.html' %}
+
+{% load static %}
+
+{% block title %}Our Web Development | Buniwa Creations {% endblock %}
+
+{% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
+
+{% block content %}
+
+
+ <!-- Service Start -->
+
+ <!-- service hero -->
+ <div class="page-header d-flex align-items-center" style="background-image: url('static/images/herobg6.jpg'); background-size: cover;">
+  <div class="container page-hero position-relative">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-6 text-center py-6">
+        <h2 class="display-4 fw-bold text-light py-2">Web Development</h2>
+        <p class="fs-5 fw-bold">
+          <a href="{% url 'index' %}">Home</a> <i class="bi bi-caret-right"></i> Web development
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- end service hero -->
+
+<body>
+
+  <main id="main" style="margin-top: 70px;">
+
+    <section class="single-post-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 post-content" data-aos="fade-up">
+
+            <!-- ======= Single Post Content ======= -->
+            <div class="single-post">
+              <h1 class="mb-5">Web App Development</h1>
+              <p><span class="firstcharacter">W</span>eb development is the cornerstone of establishing a strong online presence for any business. It involves the creation and maintenance of websites, ensuring they are visually appealing, user-friendly, and functional. In Kenya, where the digital landscape is rapidly evolving, having a professional website can significantly enhance a small business's reach and credibility. At Buniwa Creations, we specialize in delivering high-quality, affordable web App appliaction development services tailored to the unique needs of small businesses with limited budgets.</p>
+
+              
+            </div><!-- End Single Post Content -->
+
+         
+          </div>
+          <div class="col-md-3">
+
+          </div>
+
+
+        </div>
+
+
+           
+        <section id="features" class="features section">
+          <h5>Why do you need a Website?</h5>
+            <div class="container">
+                <div class="row justify-content-between">
+
+                <div class="col-lg-5 d-flex align-items-center">
+
+                    <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                        <i class="bi bi-emoji-smile-fill"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">First Impressions Matter</h4>
+                            <p>
+                                <!-- <p class="fw-bold">Html, Css and Javascript</p> -->
+                                Your website is often the first point of contact with potential customers. A professionally designed website creates a positive first impression and builds trust.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                        <i class="bi bi-megaphone-fill"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Reach a Wider Audience</h4>
+                            <p>
+                                <!-- <p class="fw-bold">Server, Database, and Logic</p> -->
+                                An online presence allows your business to reach a broader audience beyond your local area. With a well-optimized website, you can attract customers from across Kenya and even globally.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                        <i class="bi bi-hand-thumbs-up-fill"></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Enhance Credibility</h4>
+                            <p>
+                                <!-- <p class="fw-bold">Bridging Frontend and Backend</p> -->
+                                A professional website enhances your business's credibility. Customers are more likely to trust and engage with a business that has a well-designed, informative website.cohesive and fully functional product from start to finish.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="active nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                        <i class="bi bi-hourglass-top
+                        "></i>
+                        <div>
+                            <h4 class="d-none d-lg-block">Stay Competitive</h4>
+                            <p>
+                              In today's digital age, having a website is not just an option but a necessity. To stay competitive, your business needs a robust online presence.
+                            </p>
+                        </div>
+                        </a>
+                    </li>
+                    </ul><!-- End Tab Nav -->
+
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+                    <div class="heartbeat tab-pane fade active show" id="features-tab-1">
+                        <img src="{% static 'images/bes-affordable-web-development-in-kenya.png' %}" alt="" class="img-fluid">
+                    </div><!-- End Tab Content Item -->
+
+                    <div class="tab-pane fade" id="features-tab-2">
+                        <img src="{% static 'images/services-1.jpg' %}" alt="" class="img-fluid">
+                    </div><!-- End Tab Content Item -->
+
+                    <div class="tab-pane fade" id="features-tab-3">
+                        <img src="{% static 'images/services-2.jpg' %}" alt="" class="img-fluid">
+                    </div><!-- End Tab Content Item -->
+                    </div>
+
+                </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    <style>
+            section,
+        .section {
+        color: #3d4348;;
+        background-color: #ffffff;
+        padding: 60px 0;
+        scroll-margin-top: 100px;
+        overflow: clip;
+        }
+
+        @media (max-width: 1199px) {
+
+        section,
+        .section {
+            scroll-margin-top: 66px;
+        }
+        }
+
+        .services {
+            --background-color: #ffffff;
+            --accent-color: #388da8;
+            --background-color: color-mix(in srgb, var(--accent-color), transparent 97%);
+          }
+
+    </style>
+
+
+        <section id="services" class="services section">
+        <div class="row ">
+
+            <div class="col-lg-4">
+                <div class="" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-item item-cyan position-relative">
+                        <div>
+                        <h3 class="text-dark mb-4">Our Web Application Development Process</h3>
+                        <ol>
+                          <li>Consultation and Planning - 
+                            We start with a detailed consultation to understand your business needs and goals. Based on this, we create a strategic plan for your website development.
+                          </li>
+                          <li>
+                            
+                            Design and Development - 
+                            Our team of skilled designers and developers bring your vision to life, creating a website that is both aesthetically pleasing and functional.
+                          </li>
+                          <li>
+                            
+                            Testing and Launch - 
+                            Before launching, we conduct thorough testing to ensure your website is free of bugs and performs optimally across all devices and browsers.
+                          </li>
+                          <li>
+                            Training and Support - 
+                            We provide training to help you manage your website effectively and offer ongoing support to address any issues that may arise.
+                          </li>
+                        </ol>
+                        <a href="" class="btn btn-success mt-5">Get A Quote<i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-lg-8">
+              <h3>What Our Web Development Service Entails;</h3>
+                <div class="row">
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-item item-cyan position-relative">
+                    <i class="bi bi-file-code-fill icon"></i>
+                    <div>
+                    <h3>Custom Website Design</h3>
+                    Our design process begins with understanding your brand and business objectives. We create custom websites that reflect your brand identity, ensuring a unique and professional look.</p>
+                    <!-- <a href="" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-item item-orange position-relative">
+                    <i class="bi bi-pc-display icon"></i>
+                    <div>
+                    <h3>Responsive Web Design
+                    </h3>
+                    <p>
+                      With the increasing use of mobile devices, it's crucial that your website looks and functions well on all screen sizes. We ensure your website is fully responsive, providing a seamless experience for users on desktops, tablets, and smartphones.</p>
+                    <!-- <a href="" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-item item-teal position-relative">
+                    <i class="bi bi-cart-check-fill icon"></i>
+                    <div>
+                    <h3>E-commerce Solutions</h3>
+                    For businesses looking to sell products online, we offer comprehensive e-commerce solutions. From setting up online stores to integrating secure payment gateways, we make online selling easy and efficient.
+
+                    </p>
+                    <!-- <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+    
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-item item-red position-relative">
+                    <i class="bi bi-tools icon"></i>
+                    <div>
+                    <h3>Website Maintenance and Support</h3>
+                    Our services don't end at launch. We offer ongoing maintenance and support to ensure your website remains up-to-date, secure, and performs optimally.</p>
+                    <!-- <a href="service-details.html" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a> -->
+                    </div>
+                </div>
+                </div><!-- End Service Item -->
+
+                </div>
+    
+            </div>
+    
+            </div>
+    
+        </section>
+
+
+            <!-- Our Commitment -->
+    <section id="more-features" class="more-features section">
+        <div class="container section-title" data-aos="fade-up">
+            <h2>MEASURING SUCCESS</h2>
+            <P>At Buniwa Creations, we believe in data-driven results. We measure the success of our web development projects through:
+
+            </P>
+          </div>
+    
+        <div class="container">
+  
+          <div class="row justify-content-around gy-4">
+  
+            <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+      
+  
+              <div class="row">
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-easel flex-shrink-0"></i>
+                  <div>
+                    <h4>User Engagement</h4>
+                    <p> 
+                      Analyzing metrics like page views, time spent on site, and bounce rates to understand how users interact with your website.</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-patch-check flex-shrink-0"></i>
+                  <div>
+                    <h4>Website Traffic</h4>
+                    <p>
+                      Monitoring traffic sources and visitor numbers to gauge the reach and visibility of your website.</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-percent flex-shrink-0"></i>
+                  <div>
+                    <h4>Conversion Rates</h4>
+                    <p>
+                      
+                      Tracking conversions, such as form submissions, product purchases, or newsletter sign-ups, to measure the effectiveness of your website in achieving business goals.
+</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+                <div class="col-lg-6 icon-box d-flex">
+                  <i class="bi bi-chat-left-dots-fill flex-shrink-0"></i>
+                  <div>
+                    <h4>       Customer Feedback
+                    </h4>
+                    <p>                      
+                      Gathering feedback from your customers to continuously improve the website and user experience.</p>
+                  </div>
+                </div><!-- End Icon Box -->
+  
+              </div>
+  
+            </div>
+  
+            <div class=" heartbeat features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+              <img style="border-radius: 3%;" src="{% static 'images/b2.jpg' %}" alt="best-affordable-web-development-in-nairobi-kenya">
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Commitment -->
+  
+
+
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+
+  {% endblock %}

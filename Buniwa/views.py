@@ -64,8 +64,27 @@ def services(request):
     service_items = theServices.objects.all()
     return render(request, 'Buniwa/services.html', {'service_items':service_items})
 
+#           ================    all the services    =============#
+
 def web_dev(request):
-    return render(request, 'Buniwa/web_development.html')
+    return render(request, 'Buniwa/services/web_development.html')
+def seo(request):
+    return render(request, 'Buniwa/services/seo.html')
+def social_marketing(request):
+    return render(request, 'Buniwa/services/social_marketing.html')
+def content_creation(request):
+    return render(request, 'Buniwa/services/content_creation.html')
+def paid_advertising(request):
+    return render(request, 'Buniwa/services/paid_advertising.html')
+def audio_video(request):
+    return render(request, 'Buniwa/services/audio_video.html')
+def location_based(request):
+    return render(request, 'Buniwa/services/location_based.html')
+
+
+#       ================    all the services    =============#
+
+
 
 
 def career(request):

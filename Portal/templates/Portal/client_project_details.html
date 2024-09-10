@@ -3,47 +3,81 @@
 {% load static %}
 
 {% block title %}Project Details | Buniwa Creations{% endblock %}
-
 {% block seo_description %}Buniwa Creations Digital Marketing Services.{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <h2>{{ project_request.project_name }}</h2>
-    <p><strong>Status:</strong> {{ project_request.status }}</p>
-    <p>{{ project_request.description }}</p>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .page-header {
+        background-image: url('{% static "images/projecthero.jpg" %}');
+        background-size: cover;
+        color: white;
+        text-shadow: 0px 0px 10px rgba(0,0,0,0.7);
+        padding: 40px 0;
+        margin-bottom: 20px;
+    }
+    .card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+    .card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #eee;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .table {
+        margin-bottom: 0;
+    }
+</style>
 
-    <h4 class="mt-4">Milestones</h4>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Due Date</th>
-                <th>Completed</th>
-                <th>Image</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for milestone in milestones %}
-                <tr>
-                    <td>{{ milestone.title }}</td>
-                    <td>{{ milestone.description }}</td>
-                    <td>{{ milestone.due_date }}</td>
-                    <td>{{ milestone.completed|yesno:"Yes,No" }}</td>
-                    <td>
-                        {% if milestone.image %}
-                            <img src="{{ milestone.image_url }}" alt="{{ milestone.title }}" width="100">
-                        {% else %}
+<div class="page-header d-flex align-items-center justify-content-center">
+    <h1 class="display-4 fw-bold">{{ project_request.project_name }}</h1>
+</div>
+
+<div class="container py-4">
+    <div class="card">
+        <div class="card-body">
+            <p><strong>Status:</strong> {{ project_request.status }}</p>
+            <p>{{ project_request.description }}</p>
+            <h4 class="mt-4">Milestones</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Due Date</th>
+                        <th>Completed</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for milestone in milestones %}
+                    <tr>
+                        <td>{{ milestone.title }}</td>
+                        <td>{{ milestone.description }}</td>
+                        <td>{{ milestone.due_date }}</td>
+                        <td>{{ milestone.completed|yesno:"Yes,No" }}</td>
+                        <td>
+                            {% if milestone.image %}
+                            <img src="{{ milestone.image_url }}" alt="{{ milestone.title }}" style="width: 150px; height: 100px; object-fit: contain;">
+                            {% else %}
                             No Image
-                        {% endif %}
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center">No milestones found for this project.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No milestones found for this project.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

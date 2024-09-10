@@ -37,7 +37,7 @@ def client_portal(request):
         form = ProjectRequestForm()
 
     pending_projects = ProjectRequest.objects.filter(user=request.user, status='Requested')
-    active_projects = ProjectRequest.objects.filter(user=request.user, status='In Progress',)
+    active_projects = ProjectRequest.objects.filter(user=request.user, status='In Progress')
     completed_projects = ProjectRequest.objects.filter(user=request.user, status='Completed')
 
     active_tasks = Milestone.objects.filter(project__in=active_projects, completed=False)

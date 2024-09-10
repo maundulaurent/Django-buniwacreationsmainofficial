@@ -11,7 +11,18 @@ urlpatterns = [
     path('about', views.about, name = 'about'),
     path('team', views.team, name = 'team'),
     path('services', views.services, name = 'services'),
+    # --------- services pages  -------------------#
+
     path('web-development', views.web_dev, name = 'web_development'),
+    path('seo', views.seo, name = 'seo'),
+    path('social-marketing', views.social_marketing, name = 'social_marketing'),
+    path('content-creation', views.content_creation, name = 'content_creation'),
+    path('paid-advertising', views.paid_advertising, name = 'paid_advertising'),
+    path('audio-video-production', views.audio_video, name = 'audio_video'),
+    path('location-based-marketing', views.location_based, name = 'location_based'),
+    
+
+    # --------- services pages  -------------------#
     path('career', views.career, name = 'career'),
     path('contact', views.contact, name = 'contact'),
     path('portal', views.portal, name="portal"),
